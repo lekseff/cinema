@@ -58,11 +58,12 @@ export default {
 </script>
 
 <style scoped>
+/* TODO: Посмотреть по стилям ссылки*/
 .nav-list {
   list-style: none;
 }
 .nav-link {
-  color: black;
+  color: white;
   transition: all 0.3s ease-in-out;
 }
 
