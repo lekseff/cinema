@@ -1,5 +1,5 @@
 <template>
-  <main class="bg-blue-grey-darken-4 flex-grow-1">
+  <main class="d-flex flex-column bg-blue-grey-darken-4 fill-height">
     <TheHeader/>
     <router-view></router-view>
   </main>

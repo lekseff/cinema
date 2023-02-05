@@ -41,33 +41,16 @@
       </v-card-subtitle>
 
       <v-card-actions class="flex-wrap">
-        <!-- :FIXME: Через клик приходит значение или undefined т.к. chip работает как переключатель -->
-        <!--        <v-chip-group-->
-        <!--            selected-class=""-->
-        <!--            column-->
-        <!--            v-model="selectedTime"-->
-        <!--            style="user-select: none"-->
-        <!--        >-->
-        <!--          <v-chip-->
-        <!--              v-for="session in movie.sessions"-->
-        <!--              :key="session.id"-->
-        <!--              :disabled="!session.isAvailable"-->
-        <!--              :value="session.id"-->
-        <!--              class="bg-deep-orange-lighten-1"-->
-        <!--          >-->
-        <!--            {{ session.time }}-->
-        <!--          </v-chip>-->
-        <!--        </v-chip-group>-->
         <v-btn
             v-for="session in movie.sessions"
             :key="session.id"
             :value="session.id"
+            :disabled="!session.isAvailable"
             flat
             rounded="pill"
             density="comfortable"
-            :disabled="!session.isAvailable"
             class="bg-deep-orange-lighten-1 text-body-2 ma-1"
-            @click="onSelect(session.id)"
+            @click="onSelect(movie, session.id)"
         >
           {{ session.time }}
         </v-btn>
@@ -89,8 +72,14 @@ export default {
     selected: null
   }),
   methods: {
-    onSelect(val) {
-      console.log('id', val)
+    /**
+     * Действие по клику на кнопку сеанса
+     * @param movie
+     * @param id
+     */
+    onSelect(movie, id) {
+      console.log(movie.name)
+      console.log('id', id)
     }
   },
   computed: {

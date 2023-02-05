@@ -1,7 +1,7 @@
 <template>
-  <v-container>
+  <div class="d-flex align-center justify-center flex-grow-1">
     <h1>404 | Page no found</h1>
-  </v-container>
+  </div>
 </template>
 
 <script>
