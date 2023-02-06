@@ -8,11 +8,11 @@
           style="width: 100%"
       >
         <!-- Логотип -->
-        <v-col cols="4" class="pa-0 text-start">
+        <v-col cols="12" md="4" class="pa-0 text-center text-md-start">
           <AppLogo/>
         </v-col>
         <!-- Соц иконки -->
-        <v-col cols="4" class="pa-0 text-center">
+        <v-col cols="12" md="4" class="pa-0 text-center">
           <v-btn
               v-for="icon in icons"
               :key="icon"
@@ -23,9 +23,9 @@
           </v-btn>
         </v-col>
         <!-- Телефон -->
-        <v-col cols="4" class="pa-0 text-end">
+        <v-col cols="12" md="4" class="pa-0">
           <a
-              class="d-flex align-center justify-end text-decoration-none text-white text-h5 app-link-hover"
+              class="d-flex align-center justify-center justify-md-end text-decoration-none text-white text-h5 app-link-hover"
               href="tel:+78001234567"
           >
             <v-icon
@@ -38,12 +38,12 @@
           </a>
         </v-col>
       </v-row>
-      <p class="font-weight-thin mt-2">
+      <span class="font-weight-thin mt-2">
         FS-40 | Дипломная работа "Кинотеатр"
-      </p>
-      <p>
+      </span>
+      <span>
         &copy; 2021-2023
-      </p>
+      </span>
     </v-footer>
   </v-container>
 </template>
