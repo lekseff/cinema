@@ -41,7 +41,7 @@ export default {
         directors: 'Нил Бёргер',
         genres: ['фантастика', 'детектив', 'боевик', 'мелодрама'],
         actors: 'Шейлин Вудли, Тео Джеймс, Джай Кортни',
-        logo: 'img/cards/divergent-card.jpg',
+        logo: '/img/cards/divergent-card.jpg',
         ageCategory: '12+',
         // timeline: {
         //   hours :0,

@@ -1,6 +1,6 @@
 <template>
   <v-card
-      elevation="0"
+      flat
       class="d-flex bg-transparent">
     <div>
       <router-link :to="{name: 'ShowMovie', params: {id: movie.id}}">
