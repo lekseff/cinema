@@ -2,9 +2,11 @@
   <div class="app-logo d-inline">
     <router-link
         :to="{name: 'home'}"
-        class="text-uppercase font-weight-black text-decoration-none text-white text-h4"
+        class="text-h6 text-sm-h4 font-weight-black text-decoration-none text-white"
     >
-      Идём<span class="app-logo font-weight-thin text-deep-orange-lighten-1">в</span>кино
+      <span class="text-uppercase">Идем</span>
+      <span class="font-weight-thin text-deep-orange-lighten-1 text-uppercase">в</span>
+      <span class="text-uppercase">кино</span>
     </router-link>
   </div>
 </template>
