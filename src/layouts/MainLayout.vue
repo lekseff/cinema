@@ -1,6 +1,7 @@
 <template>
   <main class="d-flex flex-column bg-blue-grey-darken-4 fill-height">
     <TheHeader/>
+    <v-divider></v-divider>
     <router-view></router-view>
   </main>
 </template>

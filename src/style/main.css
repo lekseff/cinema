@@ -1,0 +1,21 @@
+/* Стиль при наведении на ссылку*/
+.app-link-hover {
+    transition: all 150ms ease-in-out;
+}
+
+.app-link-hover:hover {
+    color: #FF7043!important;
+    transition: all 150ms ease-in-out;
+}
+
+.app-link-hover:visited {
+    color: inherit;
+}
+/* End */
+
+
+/* Сброс стиля списка */
+ul li {
+    list-style: none;
+}
+/* End */

@@ -4,7 +4,7 @@
         :to="{name: 'home'}"
         class="text-uppercase font-weight-black text-decoration-none text-white text-h4"
     >
-      Идём<span class="app-logo font-weight-thin">в</span>кино
+      Идём<span class="app-logo font-weight-thin text-deep-orange-lighten-1">в</span>кино
     </router-link>
   </div>
 </template>

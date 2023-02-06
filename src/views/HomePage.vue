@@ -1,22 +1,24 @@
 <template>
   <v-container class="ma-0 pa-0" fluid>
     <v-container>
+      <!-- Слайдер -->
       <AppSlider/>
-      <h2 class="text-h4 my-5">
-        Расписание сеансов
-      </h2>
+      <!-- Панель выбора сеанса -->
       <AppSession/>
-      <v-row class="mt-6">
+      <!-- Карточки фильмов -->
+      <v-row class="mt-6 mb-2">
         <v-col
             v-for="movie in movies"
             :key="movie.id"
             cols="12"
-            md="6"
+            lg="6"
         >
           <MovieCard :movie="movie"/>
         </v-col>
       </v-row>
     </v-container>
+    <!-- Footer -->
+    <AppFooter />
   </v-container>
 </template>
 
@@ -24,10 +26,11 @@
 import AppSlider from "@/components/AppSlider";
 import AppSession from "@/components/AppSession";
 import MovieCard from "@/components/MovieCard";
+import AppFooter from "@/components/AppFooter";
 
 export default {
   name: 'HomePage',
-  components: {AppSlider, AppSession, MovieCard},
+  components: {AppSlider, AppSession, MovieCard, AppFooter},
   data: () => ({
     movies: [
       {

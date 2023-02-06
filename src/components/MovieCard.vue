@@ -3,7 +3,7 @@
       elevation="0"
       class="d-flex bg-transparent">
     <div>
-      <router-link :to="`/film/${movie.id}`">
+      <router-link :to="{name: 'ShowMovie', params: {id: movie.id}}">
         <v-img
             cover
             width="250"
@@ -15,29 +15,26 @@
       </router-link>
     </div>
     <div>
-      <v-card-title
-          class="text-white text-h4 wrap-text"
-      >
+      <v-card-title class="text-white text-h4 wrap-text">
         {{ movie.name }}
       </v-card-title>
 
-      <v-card-subtitle
-          v-if="movie.countries.length > 0"
-          class="mt-5 wrap-text"
-      >
-        Страна: {{ countries }}
-      </v-card-subtitle>
+      <v-card-subtitle>
+        <p v-if="movie.countries.length > 0" class="mt-5 wrap-text">
+          Страна: {{ countries }}
+        </p>
 
-      <v-card-subtitle class="mt-4">
-        Режиссер: {{ movie.directors }}
-      </v-card-subtitle>
+        <p class="mt-4">
+          Режиссер: {{ movie.directors }}
+        </p>
 
-      <v-card-subtitle v-if="movie.genres" class="mt-3 wrap-text">
-        Жанр: {{ genres }}
-      </v-card-subtitle>
+        <p v-if="movie.genres" class="mt-3 wrap-text">
+          Жанр: {{ genres }}
+        </p>
 
-      <v-card-subtitle class="mt-4">
-        Сеансы:
+        <p class="mt-4">
+          Сеансы:
+        </p>
       </v-card-subtitle>
 
       <v-card-actions class="flex-wrap">
@@ -59,7 +56,6 @@
       <v-card-subtitle class="mt-4">
         Продолжительность: {{ movie.timeline }} мин
       </v-card-subtitle>
-
     </div>
   </v-card>
 </template>

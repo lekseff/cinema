@@ -1,5 +1,8 @@
 <template>
-  <v-card>
+  <h2 class="text-h4 my-5">
+    Расписание сеансов
+  </h2>
+  <v-card rounded="lg">
     <v-tabs
         bg-color="white"
         show-arrows
@@ -9,13 +12,13 @@
         v-model="selectedDay"
     >
       <v-tab
-          v-for="i in 5"
+          v-for="i in 7"
           :key="i"
           :value="'tab-' + i"
       >
-        <v-sheet class="mx-1 bg-transparent text-grey-darken-3">
-          <p class="text-capitalize">Сегодня</p>
-          <p>04.02.2023</p>
+        <v-sheet class="bg-transparent text-grey-darken-3 text-body-1">
+          <p>Сегодня</p>
+          <p class="text-body-2">05 февраля</p>
         </v-sheet>
       </v-tab>
     </v-tabs>

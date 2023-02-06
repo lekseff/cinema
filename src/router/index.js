@@ -7,6 +7,11 @@ const routes = [
     component: () => import('../views/HomePage'),
   },
   {
+    path: '/movie/:id',
+    name: 'ShowMovie',
+    component: () => import('../views/MoviePage'),
+  },
+  {
     path: '/today',
     name: 'today',
     component: () => import('../views/TodayPage'),

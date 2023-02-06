@@ -3,14 +3,14 @@
     <v-container>
       <div class="d-flex align-center justify-space-between">
         <AppLogo/>
-        <nav v-if="$vuetify.display.mdAndUp" class="d-block flex-grow-1">
+        <nav v-if="$vuetify.display.mdAndUp" class="d-block flex-grow-1 px-2">
           <ul class="d-flex justify-space-evenly text-uppercase nav-list">
             <li
                 v-for="item of menuItems"
                 :key="item.name"
                 class="font-weight-medium "
             >
-              <router-link :to="{name: item.name}" class="text-decoration-none nav-link">
+              <router-link :to="{name: item.name}" class="text-decoration-none text-white app-link-hover">
                 {{ item.title }}
               </router-link>
             </li>
@@ -19,8 +19,10 @@
         </nav>
         <div>
           <a
-              class="text-decoration-none text-white text-h6"
-              href="tel:+78001234567">8(800)-123-45-67
+              class="text-decoration-none text-white text-h5 app-link-hover"
+              href="tel:+78001234567"
+          >
+            8(800)-123-45-67
           </a>
         </div>
         <!--      <div>-->
@@ -58,25 +60,8 @@ export default {
 </script>
 
 <style scoped>
-/* TODO: Посмотреть по стилям ссылки*/
-.nav-list {
-  list-style: none;
-}
-.nav-link {
-  color: white;
-  transition: all 0.3s ease-in-out;
-}
-
-.nav-link:hover {
-  color: #FF7043!important;
-  transition: all 0.2s ease-in-out;
-}
-
-.nav-link:visited {
-  color: inherit;
-}
-
 .router-link-active {
   color: #FF7043!important;
+  border-bottom: 2px solid #FF7043;
 }
 </style>
