@@ -7,19 +7,22 @@
           class="align-center ma-0 px-2"
           style="width: 100%"
       >
+        <!-- Логотип -->
         <v-col cols="4" class="pa-0 text-start">
           <AppLogo/>
         </v-col>
+        <!-- Соц иконки -->
         <v-col cols="4" class="pa-0 text-center">
           <v-btn
               v-for="icon in icons"
               :key="icon"
               :icon="icon"
               variant="text"
-              class="pa-1"
+              class="pa-1 app-link-hover"
           >
           </v-btn>
         </v-col>
+        <!-- Телефон -->
         <v-col cols="4" class="pa-0 text-end">
           <a
               class="d-flex align-center justify-end text-decoration-none text-white text-h5 app-link-hover"
