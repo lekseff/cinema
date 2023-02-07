@@ -20,6 +20,8 @@
     <!-- Footer -->
     <AppFooter />
   </v-container>
+  <!-- Модалка -->
+  <ModalHall />
 </template>
 
 <script>
@@ -27,10 +29,11 @@ import AppSlider from "@/components/AppSlider";
 import AppSession from "@/components/AppSession";
 import MovieCard from "@/components/MovieCard";
 import AppFooter from "@/components/AppFooter";
+import ModalHall from "@/components/ModalHall";
 
 export default {
   name: 'HomePage',
-  components: {AppSlider, AppSession, MovieCard, AppFooter},
+  components: {AppSlider, AppSession, MovieCard, AppFooter, ModalHall},
   data: () => ({
     movies: [
       {
