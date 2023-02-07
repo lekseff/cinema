@@ -9,6 +9,7 @@
             :src="movie.logo"
             aspect-ratio="0.66"
             class="flex-grow-0 rounded-lg"
+            :alt="movie.name"
         >
         </v-img>
         <!-- Информация -->

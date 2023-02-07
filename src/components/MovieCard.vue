@@ -10,6 +10,7 @@
             :aspect-ratio="isMobile ? 2 : 0.66"
             :src="movieImage"
             class="rounded-lg mb-2 mb-sm-0"
+            :alt="movie.name"
         >
         </v-img>
       </router-link>
