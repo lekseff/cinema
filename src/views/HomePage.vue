@@ -42,6 +42,7 @@ export default {
         genres: ['фантастика', 'детектив', 'боевик', 'мелодрама'],
         actors: 'Шейлин Вудли, Тео Джеймс, Джай Кортни',
         logo: '/img/cards/divergent-card.jpg',
+        logoMobile: '/img/cards/divergent-card-mobile.jpg',
         ageCategory: '12+',
         // timeline: {
         //   hours :0,
@@ -80,6 +81,7 @@ export default {
         genres: ['фантастика', 'фэнтези', 'боевик', 'комедия', 'приключения', 'семейный'],
         actors: 'Дуэйн Джонсон, Джош Хатчерсон, Ванесса Энн Хадженс',
         logo: 'img/cards/tour-card.jpg',
+        logoMobile: '/img/cards/tour-card-mobile.jpg',
         ageCategory: '0+',
         timeline: 94, // min
         sessions: [
@@ -109,6 +111,7 @@ export default {
         genres: ['фэнтези', 'приключения', 'драма'],
         actors: 'Элайджа Вуд, Иэн Маккеллен, Вигго Мортенсен',
         logo: 'img/cards/ring-card.jpg',
+        logoMobile: '/img/cards/ring-card-mobile.jpg',
         ageCategory: '12+',
         timeline: 179, // min
         sessions: [
@@ -148,6 +151,7 @@ export default {
         genres: ['драма', 'криминал', 'триллер'],
         actors: 'Хоакин Феникс, Роберт Де Ниро, Зази Битц',
         logo: 'img/cards/joker-card.jpg',
+        logoMobile: '/img/cards/joker-card-mobile.jpg',
         ageCategory: '18+',
         timeline: 122, // min
         sessions: [
@@ -175,7 +179,8 @@ export default {
         directors: 'Кристофер Нолан',
         genres: ['фантастика', 'боевик', 'триллер', 'драма', 'детектив'],
         actors: 'Леонардо ДиКаприо, Джозеф Гордон-Левитт',
-        logo: 'img/cards/inception-card.jpeg',
+        logo: 'img/cards/inception-card.jpg',
+        logoMobile: '/img/cards/inception-card-mobile.jpg',
         ageCategory: '12+',
         timeline: 148, // min
         sessions: [
@@ -209,11 +214,6 @@ export default {
             isAvailable: true,
             time: '15:45'
           },
-          {
-            id: 1046,
-            isAvailable: true,
-            time: '20:45'
-          }
         ],
       },
     ]
