@@ -30,6 +30,7 @@ import AppSession from "@/components/AppSession";
 import MovieCard from "@/components/MovieCard";
 import AppFooter from "@/components/AppFooter";
 import ModalHall from "@/components/ModalHall";
+import axios from 'axios';
 
 export default {
   name: 'HomePage',
@@ -56,21 +57,25 @@ export default {
           {
             id: 1001,
             isAvailable: false,
+            hall_id: 1,
             time: '10:45'
           },
           {
             id: 1002,
             isAvailable: true,
+            hall_id: 2,
             time: '12:45'
           },
           {
             id: 1003,
             isAvailable: true,
+            hall_id: 4,
             time: '14:00'
           },
           {
             id: 1005,
             isAvailable: true,
+            hall_id: 6,
             time: '18:10'
           }
         ],
@@ -221,6 +226,12 @@ export default {
       },
     ]
   }),
+  mounted() {
+    axios.get('http://127.0.0.1:8000/api/movies')
+        .then((res) => {
+          console.log('resp', res)
+        })
+  }
 }
 </script>
 
