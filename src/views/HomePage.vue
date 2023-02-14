@@ -227,9 +227,10 @@ export default {
     ]
   }),
   mounted() {
-    axios.get('http://127.0.0.1:8000/api/movies')
+    const url = process.env.VUE_APP_API_URL
+    axios.get(`${url}/api/cinema`)
         .then((res) => {
-          console.log('resp', res)
+          console.log('resp', res.data.data)
         })
   }
 }

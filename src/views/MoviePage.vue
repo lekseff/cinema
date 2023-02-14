@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card class="bg-transparent" flat>
+    <v-card v-if="!loading" class="bg-transparent" flat>
       <div class="d-flex">
         <!-- Баннер -->
         <v-img
@@ -26,7 +26,7 @@
             </p>
             <v-divider></v-divider>
             <p class="mt-5 pb-3">
-              <span class="font-weight-medium">Страна: </span> {{ movie.countries }}
+              <span class="font-weight-medium">Страна: </span> {{ movie.countries.join(', ') }}
             </p>
             <v-divider></v-divider>
             <p class="mt-5 pb-3">
@@ -34,7 +34,7 @@
             </p>
             <v-divider></v-divider>
             <p class="mt-5 pb-3">
-              <span class="font-weight-medium">Жанр: </span> {{ movie.genres }}
+              <span class="font-weight-medium">Жанр: </span> {{ movie.genres.join(', ') }}
             </p>
             <v-divider></v-divider>
             <p class="mt-5 pb-3">
@@ -60,55 +60,55 @@
       </div>
     </v-card>
   </v-container>
-  <AppFooter />
+  <AppFooter/>
 </template>
 
 <script>
 import AppFooter from "@/components/AppFooter";
+import axios from "axios";
 
 export default {
   name: "MoviePage",
   components: {AppFooter},
   data: () => ({
-    movie: {
-      id: 1,
-      name: 'Дивергент',
-      plot: 'В антиутопическом Чикаго будущего существует общество, члены которого придумали способ избегать конфликтов и поддерживать вокруг незыблемый порядок. Каждый человек по достижении 16 лет должен определить, к чему лежит его душа, и в зависимости от своих личностных качеств присоединиться к одной из пяти фракций – Искренность, Бесстрашие, Эрудиция, Дружелюбие или Отречение. Для того, чтобы и не ошибиться с фракцией, накануне церемонии выбора подростки проходят специальное тестирование. Юная Беатрис оказывается угрозой для всей сложившейся системы, когда тесты выявляют в ней дивергента – человека, которого невозможно однозначно определить в одну из фракций. Способные мыслить независимо и не питающие особого уважения к правительству, дивергенты одним своим существованием дискредитируют принципы, на которых строится общество. И теперь Беатрис – одна из таких людей, живущих вне закона и борющихся с системой, которая намерена любой ценой от них избавиться.',
-      countries: ['США'],
-      directors: 'Нил Бёргер',
-      genres: ['фантастика', 'детектив', 'боевик', 'мелодрама'],
-      actors: 'Шейлин Вудли, Тео Джеймс, Джай Кортни',
-      logo: '/img/cards/divergent-card.jpg',
-      ageCategory: '12+',
-      // timeline: {
-      //   hours :0,
-      //   minutes: 48
-      // },
-      timeline: 134, // min
-      sessions: [
-        {
-          id: 1001,
-          isAvailable: false,
-          time: '10:45'
-        },
-        {
-          id: 1002,
-          isAvailable: true,
-          time: '12:45'
-        },
-        {
-          id: 1003,
-          isAvailable: true,
-          time: '14:00'
-        },
-        {
-          id: 1005,
-          isAvailable: true,
-          time: '18:10'
-        }
-      ],
-    },
+    // movie: {
+    //   id: 1,
+    //   name: 'Дивергент',
+    //   plot: 'В антиутопическом Чикаго будущего существует общество, члены которого придумали способ избегать конфликтов и поддерживать вокруг незыблемый порядок. Каждый человек по достижении 16 лет должен определить, к чему лежит его душа, и в зависимости от своих личностных качеств присоединиться к одной из пяти фракций – Искренность, Бесстрашие, Эрудиция, Дружелюбие или Отречение. Для того, чтобы и не ошибиться с фракцией, накануне церемонии выбора подростки проходят специальное тестирование. Юная Беатрис оказывается угрозой для всей сложившейся системы, когда тесты выявляют в ней дивергента – человека, которого невозможно однозначно определить в одну из фракций. Способные мыслить независимо и не питающие особого уважения к правительству, дивергенты одним своим существованием дискредитируют принципы, на которых строится общество. И теперь Беатрис – одна из таких людей, живущих вне закона и борющихся с системой, которая намерена любой ценой от них избавиться.',
+    //   countries: ['США'],
+    //   directors: 'Нил Бёргер',
+    //   genres: ['фантастика', 'детектив', 'боевик', 'мелодрама'],
+    //   actors: 'Шейлин Вудли, Тео Джеймс, Джай Кортни',
+    //   logo: '/img/cards/divergent-card.jpg',
+    //   ageCategory: '12+',
+    //   timeline: 134, // min
+    // },
+    movie: {},
+    loading: true
   }),
+  created() {
+    // const url = process.env.VUE_APP_API_URL
+    // const {id} = this.$route.params
+    //
+    // axios
+    //     .get(`${url}/api/movies/${id}`)
+    //     .then((resp => {
+    //       this.name = resp.data.data
+    //       console.log('res', this.name.name)
+    //     }))
+    this.getMovie()
+  },
+  methods: {
+    // Пока для пробы сделал загрузку фильма с сервера
+    async getMovie() {
+      const url = process.env.VUE_APP_API_URL
+      const {id} = this.$route.params
+
+      const response = await axios.get(`${url}/api/movies/${id}`)
+      this.movie = response.data.data
+      this.loading = false
+    }
+  }
 }
 </script>
 
