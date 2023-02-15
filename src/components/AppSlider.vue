@@ -29,28 +29,28 @@ export default {
   data: () => ({
     slides: [
       {
-        id: 1011,
-        movieId: 1011,
+        id: 1,
+        movieId: 1,
         src: 'img/slider/divergent.jpg'
       },
       {
-        id: 1012,
-        movieId: 1012,
+        id: 2,
+        movieId: 2,
         src: 'img/slider/inception.jpg'
       },
       {
-        id: 1013,
-        movieId: 1013,
+        id: 3,
+        movieId: 3,
         src: 'img/slider/tour.jpg'
       },
       {
-        id: 1014,
-        movieId: 1014,
+        id: 4,
+        movieId: 4,
         src: 'img/slider/joker.jpg'
       },
       {
-        id: 1015,
-        movieId: 1015,
+        id: 5,
+        movieId: 5,
         src: 'img/slider/ring.jpg'
       }
     ]
