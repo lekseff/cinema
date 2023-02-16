@@ -13,7 +13,7 @@ export default createStore({
     /**
      * Главные данные сайта
      */
-    getCinemaDates({dispatch}, ) {
+    getCinemaDates({dispatch}) {
       dispatch('setLoading')
       const url = process.env.VUE_APP_API_URL
       axios.get(`${url}/api/cinema`)
