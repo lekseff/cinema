@@ -6,7 +6,7 @@
          <!-- Панель выбора сеанса -->
          <AppSession/>
          <!-- Карточки фильмов -->
-         <v-row class="mt-6 mb-2">
+         <v-row v-if="movies.length" class="mt-6 mb-2">
             <v-col
                 v-for="movie in movies"
                 :key="movie.id"
@@ -16,6 +16,16 @@
                <MovieCard :movie="movie"/>
             </v-col>
          </v-row>
+        <!-- Если сеансов нет -->
+        <div
+            v-else
+            class="d-flex align-center justify-center flex-grow-1 py-3"
+            style="height: 50vh"
+        >
+          <span class="text-h4 text-center" style="opacity: 0.7">
+            Сеансов нет
+          </span>
+        </div>
       </v-container>
       <!-- Footer -->
       <AppFooter/>
