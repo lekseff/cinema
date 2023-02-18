@@ -1,9 +1,13 @@
 import {createStore} from 'vuex'
-import axios from "axios";
-import {movies} from "@/store/movies"
-import {dates} from "@/store/dates";
-import {sessions} from "@/store/sessions";
-import {loader} from "@/store/loader";
+import axios from 'axios'
+import {movies} from '@/store/movies' // Фильмы
+import {dates} from '@/store/dates' // Даты фильтра сеансов на главной странице
+import {sessions} from '@/store/sessions' // Сеансы
+import {halls} from '@/store/halls' // Залы
+import {loader} from '@/store/loader' // Лоадер
+import {modals} from '@/store/modals' // Модалки
+import {snackbar} from "@/store/snackbar";  // Всплывающие уведомления
+
 
 export default createStore({
   state: () => ({}),
@@ -35,6 +39,9 @@ export default createStore({
     movies,
     dates,
     sessions,
+    halls,
     loader,
+    modals,
+    snackbar,
   }
 })

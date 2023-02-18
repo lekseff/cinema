@@ -235,9 +235,9 @@ export default {
       }
    },
    mounted() {
-      // setTimeout(() => {
-      //    this.modal = true
-      // }, 300)
+      setTimeout(() => {
+         this.modal = true
+      }, 300)
    },
    computed: {
       /**

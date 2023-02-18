@@ -29,7 +29,39 @@ const routes = [
     path: '/login',
     name: 'login',
     meta: {layout: 'empty'},
-    component: () => import('../components/AppLogin')
+    component: () => import('../views/LoginPage')
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    meta: {layout: 'dashboard'},
+    component: () => import('../views/dashboard/IndexPage'),
+    children: [
+      {
+        path: 'halls',
+        name: 'indexHalls',
+        component: () => import('../views/dashboard/Halls/IndexPage'),
+        children: [
+          {
+            path: 'control',
+            name: 'controlHalls',
+            component: () => import('../views/dashboard/Halls/ControlHallsPage')
+          },
+          {
+            path: 'settings',
+            name: 'settingsHalls',
+            component: () => import('../views/dashboard/Halls/SettingsHallsPage'),
+            children: [
+              {
+                path: ':id',
+                name: 'settingHall',
+                component: () => import('../views/dashboard/Halls/SettingHallPage')
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     path: '/:pathMatch(.*)*',

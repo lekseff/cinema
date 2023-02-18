@@ -1,5 +1,5 @@
 <template>
-  <main class="bg-blue-accent-1 ma-0 fill-height">
+  <main class="ma-0 fill-height">
     <router-view></router-view>
   </main>
 </template>
