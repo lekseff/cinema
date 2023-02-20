@@ -60,6 +60,23 @@ const routes = [
             ]
           }
         ]
+      },
+      {
+        path: 'movies',
+        name: 'indexMovies',
+        component: () => import('../views/dashboard/Movies/IndexPage'),
+        children: [
+          {
+            path: 'all',
+            name: 'allMovies',
+            component: () => import('../views/dashboard/Movies/MoviesPage')
+          },
+          {
+            path: 'create',
+            name: 'createMovie',
+            component: () => import('../views/dashboard/Movies/CreateMoviePage')
+          }
+        ]
       }
     ]
   },

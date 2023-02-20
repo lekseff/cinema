@@ -14,7 +14,8 @@
                       variant="outlined"
                       density="comfortable"
                       v-model.trim="tempHall.name"
-                      :rules="[rules.maxLength50]"
+                      :rules="[rules.required, rules.maxLength50]"
+                      color="deep-orange-lighten-1"
                   >
                   </v-text-field>
                </div>
@@ -24,7 +25,7 @@
                <p class="text-grey-darken-3 mb-4">
                   Укажите количество рядов и кресел в ряду:
                </p>
-               <v-form>
+               <v-form ref="settingHallForm">
                   <!-- :TODO Попробовать вынести форму или инпуты в отдельный компонент -->
                   <v-row class="justify-space-around">
                      <v-col cols="5">
@@ -37,6 +38,7 @@
                             v-model.number="tempHall.rows"
                             oninput="validity.valid||(value='')"
                             :rules="[rules.required, rules.maxValue50]"
+                            color="deep-orange-lighten-1"
                             @update:modelValue="changeStructure"
                         >
                         </v-text-field>
@@ -51,6 +53,7 @@
                             density="comfortable"
                             oninput="validity.valid||(value='')"
                             :rules="[rules.required, rules.maxValue50]"
+                            color="deep-orange-lighten-1"
                             @update:modelValue="changeStructure"
                         >
                         </v-text-field>
@@ -73,8 +76,9 @@
                             type="number"
                             label="Обычное"
                             variant="outlined"
-                            v-model.number="tempHall.price"
                             density="comfortable"
+                            color="deep-orange-lighten-1"
+                            v-model.number="tempHall.price"
                             oninput="validity.valid||(value='')"
                             :rules="[rules.required, rules.negative, rules.maxValue10000]"
                         >
@@ -88,6 +92,7 @@
                             label="VIP место"
                             variant="outlined"
                             density="comfortable"
+                            color="deep-orange-lighten-1"
                             v-model.number="tempHall.priceVip"
                             oninput="validity.valid||(value='')"
                             :rules="[rules.required, rules.negative, rules.maxValue10000]"
@@ -98,7 +103,7 @@
                </v-form>
             </v-col>
          </v-row>
-         <v-sheet class="place-border rounded-lg pa-3 mb-3">
+         <v-sheet class="border rounded-lg pa-3 mb-3">
             <h5 class="text-center text-body-1">Структура зала</h5>
 
             <!-- :FIXME: Переделать на компоненты -->
@@ -157,7 +162,7 @@
              variant="flat"
              color="light-blue-darken-1"
              class="d-block mx-auto"
-             @click="onSaveSettings"
+             @click="onSubmitForm"
          >
             Сохранить
          </v-btn>
@@ -231,7 +236,11 @@ export default {
       /**
        * Сохраняет настройки на сервере
        */
-      onSaveSettings() {
+      async onSubmitForm() {
+         // Валидация формы
+         const {valid} = await this.$refs.settingHallForm.validate()
+         if (!valid) return
+
          const data = {...this.tempHall}
          delete data.id
          data.structure = JSON.stringify(data.structure)

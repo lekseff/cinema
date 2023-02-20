@@ -22,13 +22,13 @@
                ></v-list-item>
             </template>
 
-            <v-list-item title="Управление" :to="{name: 'controlHalls'}" value="1">
+            <v-list-item title="Управление" :to="{name: 'controlHalls'}">
                <template v-slot:prepend>
                   <v-icon class="ma-0 mr-3" color="white" size="small">mdi-tune</v-icon>
                </template>
             </v-list-item>
 
-            <v-list-item title="Конфигурация" :to="{name: 'settingsHalls'}" value="2">
+            <v-list-item title="Конфигурация" :to="{name: 'settingsHalls'}">
                <template v-slot:prepend>
                   <v-icon class="ma-0 mr-3" color="white" size="small">mdi-cogs</v-icon>
                </template>
@@ -45,13 +45,13 @@
                ></v-list-item>
             </template>
 
-            <v-list-item title="Фильмы" value="21">
+            <v-list-item title="Все фильмы" :to="{name: 'allMovies'}">
                <template v-slot:prepend>
                   <v-icon class="ma-0 mr-3" color="white" size="small">mdi-movie-roll</v-icon>
                </template>
             </v-list-item>
 
-            <v-list-item title="Добавить фильм" value="22">
+            <v-list-item title="Добавить фильм" :to="{name: 'createMovie'}">
                <template v-slot:prepend>
                   <v-icon class="ma-0 mr-3" color="white" size="small">mdi-plus-thick</v-icon>
                </template>
@@ -69,13 +69,13 @@
                ></v-list-item>
             </template>
 
-            <v-list-item title="Все сеансы" value="31">
+            <v-list-item title="Все сеансы">
                <template v-slot:prepend>
                   <v-icon class="ma-0 mr-3" color="white" size="small">mdi-movie-play-outline</v-icon>
                </template>
             </v-list-item>
 
-            <v-list-item title="Добавить сеанс" value="32">
+            <v-list-item title="Добавить сеанс">
                <template v-slot:prepend>
                   <v-icon class="ma-0 mr-3" color="white" size="small">mdi-plus-thick</v-icon>
                </template>
