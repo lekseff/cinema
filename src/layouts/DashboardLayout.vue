@@ -22,21 +22,13 @@
                ></v-list-item>
             </template>
 
-            <v-list-item
-                value="1"
-                title="Управление"
-                :to="{name: 'controlHalls'}"
-            >
+            <v-list-item title="Управление" :to="{name: 'controlHalls'}" value="1">
                <template v-slot:prepend>
                   <v-icon class="ma-0 mr-3" color="white" size="small">mdi-tune</v-icon>
                </template>
             </v-list-item>
 
-            <v-list-item
-                value="2"
-                title="Конфигурация"
-                :to="{name: 'settingsHalls'}"
-            >
+            <v-list-item title="Конфигурация" :to="{name: 'settingsHalls'}" value="2">
                <template v-slot:prepend>
                   <v-icon class="ma-0 mr-3" color="white" size="small">mdi-cogs</v-icon>
                </template>
@@ -53,12 +45,39 @@
                ></v-list-item>
             </template>
 
-            <v-list-item
-                value="22"
-                title="Добавить фильм"
-            >
+            <v-list-item title="Фильмы" value="21">
                <template v-slot:prepend>
-                  <v-icon class="ma-0 mr-1" color="white">mdi-plus-thick</v-icon>
+                  <v-icon class="ma-0 mr-3" color="white" size="small">mdi-movie-roll</v-icon>
+               </template>
+            </v-list-item>
+
+            <v-list-item title="Добавить фильм" value="22">
+               <template v-slot:prepend>
+                  <v-icon class="ma-0 mr-3" color="white" size="small">mdi-plus-thick</v-icon>
+               </template>
+            </v-list-item>
+
+         </v-list-group>
+
+         <!-- Группа сеансы -->
+         <v-list-group value="sessions" :opened="true">
+            <template v-slot:activator="{ props }">
+               <v-list-item
+                   v-bind="props"
+                   prepend-icon="mdi-filmstrip"
+                   title="Сеансы"
+               ></v-list-item>
+            </template>
+
+            <v-list-item title="Все сеансы" value="31">
+               <template v-slot:prepend>
+                  <v-icon class="ma-0 mr-3" color="white" size="small">mdi-movie-play-outline</v-icon>
+               </template>
+            </v-list-item>
+
+            <v-list-item title="Добавить сеанс" value="32">
+               <template v-slot:prepend>
+                  <v-icon class="ma-0 mr-3" color="white" size="small">mdi-plus-thick</v-icon>
                </template>
             </v-list-item>
 

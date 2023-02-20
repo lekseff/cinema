@@ -117,6 +117,7 @@
 <script>
 import {mapActions, mapGetters} from "vuex";
 import {MODAL, rules} from '@/../constants'
+import {createStructure} from "../../../utills";
 
 export default {
    name: 'ModalAddHall',
@@ -152,31 +153,32 @@ export default {
       async onSubmitForm() {
          const {valid} = await this.$refs.addHallForm.validate()
          if (!valid) return
-         this.hall.structure = this.createStructure()
+         this.hall.structure = createStructure(this.hall.rows, this.hall.places, true)
          this.sendForm()
       },
       onCloseModal() {
          this.closeModal(MODAL.addHall)
          this.$refs.addHallForm.reset()
       },
-      /**
-       * Создает json структуру зала
-       * @returns {string} - json
-       */
-      createStructure() {
-         const structure = []
-         const count = this.hall.rows * this.hall.places
-         for (let i = 1; i <= count; i++) {
-            structure.push({
-               id: i,
-               isFree: true,
-               selected: false,
-               isVip: false,
-               disabled: false
-            })
-         }
-         return JSON.stringify(structure)
-      },
+      // :FIXME Удалить коммент
+      // /**
+      //  * Создает json структуру зала
+      //  * @returns {string} - json
+      //  */
+      // createStructure() {
+      //    const structure = []
+      //    const count = this.hall.rows * this.hall.places
+      //    for (let i = 1; i <= count; i++) {
+      //       structure.push({
+      //          id: i,
+      //          isFree: true,
+      //          selected: false,
+      //          isVip: false,
+      //          disabled: false
+      //       })
+      //    }
+      //    return JSON.stringify(structure)
+      // },
       /**
        * Отправка данных формы
        */

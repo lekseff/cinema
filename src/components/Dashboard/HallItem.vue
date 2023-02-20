@@ -34,7 +34,7 @@
 
 <script>
 export default {
-   name: "HallItem",
+   name: 'HallItem',
    props: ['hall'],
    methods: {
       onChangeStatus(hall) {

@@ -6,11 +6,8 @@
          Конфигурация залов
       </h3>
       <v-divider></v-divider>
-      <!-- CСообщение пустой список -->
-      <h6
-          v-if="!activeHalls.length"
-          class="text-center text-h5 text-grey-darken-1 mt-5"
-      >
+      <!-- Сообщение пустой список -->
+      <h6 v-if="!activeHalls.length" class="text-center text-h5 text-grey-darken-1 mt-5">
          Активных залов нет
       </h6>
 
@@ -48,7 +45,7 @@ export default {
    components: {AppLoader},
    data: () => ({
       loading: true,
-      selectedHall: '',
+      selectedHall: null,
    }),
    mounted() {
       this.getHalls()
@@ -66,16 +63,23 @@ export default {
        */
       setActiveHall() {
          if (!this.activeHalls.length) return
-         this.selectedHall = this.activeHalls[0].id
-         // Показываем страницу активного зала
-         this.$router.push({name: 'settingHall', params: {id: this.selectedHall}})
+         const paramId = this.$route.params.id
+
+         if (!paramId) {
+            // Для показа первого элемента при переходе на страницу конфигурации
+            this.selectedHall = this.activeHalls[0].id
+            this.$router.push({name: 'settingHall', params: {id: this.selectedHall}})
+         } else {
+            this.selectedHall = +paramId
+         }
       }
    },
    computed: {
       ...mapGetters({
          halls: 'getAllHalls',
          activeHalls: 'getActiveHalls',
-      })
+         getHallById: 'getHallById'
+      }),
    },
 }
 </script>

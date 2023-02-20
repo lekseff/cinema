@@ -66,7 +66,7 @@ export default {
       })
    },
    methods: {
-      ...mapActions(['openModal', 'getHalls', 'removeHall']),
+      ...mapActions(['openModal', 'getHalls', 'removeHall', 'updateHall']),
       onAddHall() {
          this.openModal(MODAL.addHall)
       },
@@ -75,7 +75,11 @@ export default {
        * @param hall
        */
       onChangeStatus(hall) {
-         console.log('status', hall)
+         const payload = {
+            id: hall.id,
+            data: {available: !hall.available}
+         }
+         this.updateHall(payload)
       },
       /**
        * Удаление зала

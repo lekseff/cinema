@@ -20,6 +20,9 @@ export const halls = {
     setHalls({commit}, payload) {
       commit('setHalls', payload)
     },
+    setHall({commit}, payload) {
+      commit('setHall', payload)
+    },
     // /**
     //  * Добавляет зал в store
     //  * @param commit
@@ -48,15 +51,12 @@ export const halls = {
      * @param payload
      * @returns {Promise<void>}
      */
-    async getHallById({commit}, payload) {
+    async loadHallById({commit}, payload) {
       const url = process.env.VUE_APP_API_URL
-      try {
-        const response = await axios.get(`${url}/api/halls/${payload}`)
-        commit('setHall', response.data.data)
-      } catch (e) {
-        console.log('ошибка загрузка залов', e)
-        // this.$router.push({name: 'not-found'})
-      }
+      await axios.get(`${url}/api/halls/${payload}`)
+        .then((response) => {
+          commit('setHall', response.data.data)
+        })
     },
     /**
      * Создает зал, метод POST
@@ -99,6 +99,34 @@ export const halls = {
             color: 'error'
           })
         })
+    },
+    /**
+     * Обновления информации о зале
+     * @param dispatch
+     * @param getters
+     * @param payload - {id: id, data: {}}
+     */
+    updateHall({dispatch}, payload) {
+      const url = process.env.VUE_APP_API_URL
+      const {id, data} = payload
+      axios.put(`${url}/api/halls/${id}`, data, {
+        headers: {
+          'Accept': 'application/json',
+        }
+      }).then(() => {
+        dispatch('getHalls')
+        // :FIXME Попробовать убрать запрос на получение по id. Можно взять из store после getHalls
+        dispatch('loadHallById', id)  // Для обновления выбранного после изменения параметров
+        dispatch('openSnackbar', {
+          message: 'Изменения сохранены',
+          color: 'success'
+        })
+      }).catch(err => {
+        dispatch('openSnackbar', {
+          message: err.response.data.message || 'Ошибка обновления элемента',
+          color: 'error'
+        })
+      })
     }
   },
   getters: {
@@ -115,6 +143,9 @@ export const halls = {
     },
     getHall(state) {
       return state.hall
+    },
+    getHallById: (state) => (id) => {
+      return state.halls.find(h => h.id === id)
     }
   }
 }
