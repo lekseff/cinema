@@ -1,53 +1,92 @@
 <template>
-   <v-card class="d-flex flex-column flex-grow-1 fill-height rounded-lg">
-      <div class="d-flex justify-space-between mb-5">
-         <div>
-            <v-img
-                cover
-                :src="movie.logo"
-                :aspect-ratio="0.66"
-                width="220"
-            ></v-img>
-         </div>
-         <div class="pa-3">
-            <v-card-title class="pt-0">{{ movie.name }}</v-card-title>
+  <v-card class="d-flex flex-column flex-grow-1 fill-height rounded-lg">
+    <div class="d-flex justify-space-between">
 
-            <h6 class="text-body-1">Актеры:</h6>
-            <v-card-text class="pa-2">{{ movie.actors }}</v-card-text>
-
-            <template v-if="countries.length">
-               <h6 class="text-body-1">Страна:</h6>
-               <v-card-text class="pa-2">{{ countries }}</v-card-text>
-            </template>
-
-            <template v-if="genres.length">
-               <h6 class="text-body-1">Жанр:</h6>
-               <v-card-text class="pa-2">{{ genres }}</v-card-text>
-            </template>
-         </div>
+      <!-- Блок с картинкой -->
+      <div>
+        <v-img
+            cover
+            :src="movie.logo"
+            :aspect-ratio="0.66"
+            width="320"
+        ></v-img>
       </div>
 
-      <h6 class="text-body-1">Описание:</h6>
-      <v-card-text>{{ movie.plot }}</v-card-text>
-   </v-card>
+      <!--Контент -->
+      <div class="d-flex flex-column pa-3">
+        <v-card-title class="pt-0 text-grey-darken-3 text-h5 pb-2">
+          {{ movie.name }}
+        </v-card-title>
+
+        <v-divider></v-divider>
+
+        <div class="d-flex align-center mb-5 mt-3">
+          <v-card-subtitle class="text-body-1 text-decoration-underline">
+            Актеры:
+          </v-card-subtitle>
+          <p class="d-inline-block">{{ movie.actors }}</p>
+        </div>
+
+        <div class="d-flex align-center mb-5">
+          <v-card-subtitle class="text-body-1 text-decoration-underline">
+            Страна:
+          </v-card-subtitle>
+          <p class="d-inline-block">{{ countries }}</p>
+        </div>
+
+        <div class="d-flex align-center mb-5">
+          <v-card-subtitle class="text-body-1 text-decoration-underline">
+            Жанр:
+          </v-card-subtitle>
+          <p class="d-inline-block">{{ genres }}</p>
+        </div>
+
+        <v-card-subtitle
+            class="text-body-1 px-4 py-0 text-decoration-underline"
+        >
+          Описание:
+        </v-card-subtitle>
+        <v-card-text class="pa-3 flex-grow-1">
+          {{ movie.plot }}
+        </v-card-text>
+
+        <v-card-actions class="justify-end">
+          <v-btn
+              variant="flat"
+              color="light-blue-darken-1"
+              @click="remove(movie.id)"
+          >
+            Удалить
+          </v-btn>
+        </v-card-actions>
+      </div>
+    </div>
+  </v-card>
 </template>
 
 <script>
+import {mapActions} from "vuex";
 import {arrayToString} from "../../../utills";
 
 export default {
-   name: "MovieItem",
-   props: ['movie'],
-   computed: {
-      genres() {
-         if (!this.movie.genres) return []
-         return arrayToString(this.movie.genres)
-      },
-      countries() {
-         if (!this.movie.countries) return []
-         return arrayToString(this.movie.countries)
-      }
-   }
+  name: "MovieItem",
+  props: ['movie'],
+  computed: {
+    genres() {
+      if (!this.movie.genres) return []
+      return arrayToString(this.movie.genres)
+    },
+    countries() {
+      if (!this.movie.countries) return []
+      return arrayToString(this.movie.countries)
+    }
+  },
+  methods: {
+    ...mapActions(['removeMovie']),
+    remove(id) {
+      this.removeMovie(id)
+    }
+  }
 }
 </script>
 

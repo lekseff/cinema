@@ -107,7 +107,7 @@
                       density="comfortable"
                       label="Возрастная категория"
                       :items="ageCategoriesList"
-                      v-model="movie.ageCategories"
+                      v-model="movie.ageCategory"
                       color="deep-orange-lighten-1"
                       :rules="[rules.requiredSelect]"
                   >
@@ -129,7 +129,7 @@
                       density="comfortable"
                       oninput="validity.valid||(value='')"
                       color="deep-orange-lighten-1"
-                      :rules="[rules.required, rules.negative, rules.maxValue10000]"
+                      :rules="[rules.required, rules.negative, rules.maxValue500]"
                   >
                   </v-text-field>
                </v-col>
@@ -146,7 +146,7 @@
                </v-col>
                <v-col cols="12" md="6" lg="3">
                   <v-file-input
-                      v-model="movie.mobileLogo"
+                      v-model="movie.logoMobile"
                       show-size
                       variant="outlined"
                       label="Мобильный постер"
@@ -169,10 +169,6 @@
                   ></v-textarea>
                </v-col>
             </v-row>
-            <v-col>
-
-            </v-col>
-
          </v-form>
          <v-btn
              variant="flat"
@@ -203,9 +199,9 @@ export default {
          genres: [],
          actors: '',
          directors: '',
-         mobileLogo: [],
+         logoMobile: [],
          countries: [],
-         ageCategories: []
+         ageCategory: []
       },
       rules: rules
    }),
@@ -231,7 +227,7 @@ export default {
 
       async onSubmitForm() {
          const {valid} = await this.$refs.createMovieForm.validate()
-         if(!valid) return
+         if (!valid) return
          console.log('send', this.movie)
       }
    }

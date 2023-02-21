@@ -20,6 +20,11 @@ export const movies = {
     setAllMovies({commit}, payload) {
       commit('setAllMovies', payload)
     },
+    /**
+     * Получает список всех фильмов
+     * @param dispatch
+     * @returns {Promise<void>}
+     */
     async loadAllMovies({dispatch}) {
       const url = process.env.VUE_APP_API_URL
       try {
@@ -28,6 +33,36 @@ export const movies = {
       } catch (error) {
         console.log(error)
       }
+    },
+    /**
+     * Удаляет фильм
+     * @param dispatch
+     * @param getters
+     * @param id
+     */
+    async removeMovie({dispatch, getters}, id) {
+      const url = process.env.VUE_APP_API_URL
+      await axios.delete(`${url}/api/movies/${id}`, {
+        headers: {
+          'Accept': 'application/json',
+        }
+      })
+        .then(() => {
+          // Изменяем store
+          const movies = getters.getAllMovies.filter(m => m.id !== id)
+          dispatch('setAllMovies', movies)
+          // Сообщение удалении
+          dispatch('openSnackbar', {
+            message: 'Фильм успешно удален',
+            color: 'success'
+          })
+        })
+        .catch(error => {
+          dispatch('openSnackbar', {
+            message: error.message ||'Ошибка удаления фильма',
+            color: 'error'
+          })
+        })
     }
   },
   getters: {
