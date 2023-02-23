@@ -41,7 +41,7 @@ import {mapActions, mapGetters} from "vuex";
 import AppLoader from "@/components/AppLoader";
 
 export default {
-   name: "SettingsHallsPage",
+   name: 'HallsSettingsPage',
    components: {AppLoader},
    data: () => ({
       loading: true,

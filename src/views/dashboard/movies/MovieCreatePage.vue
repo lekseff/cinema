@@ -189,7 +189,7 @@ import {mapGetters, mapActions} from "vuex";
 import {rules} from "../../../../constants";
 
 export default {
-   name: 'CreateMovie',
+   name: 'MovieCreatePage',
    data: () => ({
       countriesList: [],
       genresList: [],

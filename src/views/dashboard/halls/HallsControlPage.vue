@@ -49,7 +49,7 @@ import {mapActions, mapGetters} from "vuex";
 import {MODAL} from '@/../constants'
 
 export default {
-   name: "ControlHallsPage",
+   name: "HallsControlPage",
    components: {ItemHall, AppLoader, AddHallModal},
    data: () => ({
       loading: true

@@ -69,13 +69,13 @@
                ></v-list-item>
             </template>
 
-            <v-list-item title="Все сеансы">
+            <v-list-item title="Все сеансы" :to="{name: 'allSessions'}">
                <template v-slot:prepend>
                   <v-icon class="ma-0 mr-3" color="white" size="small">mdi-movie-play-outline</v-icon>
                </template>
             </v-list-item>
 
-            <v-list-item title="Добавить сеанс">
+            <v-list-item title="Добавить сеанс" :to="{name: 'createSessions'}">
                <template v-slot:prepend>
                   <v-icon class="ma-0 mr-3" color="white" size="small">mdi-plus-thick</v-icon>
                </template>

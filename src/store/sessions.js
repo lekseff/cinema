@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const sessions = {
   state: () => ({
     sessions: {},
@@ -10,7 +12,33 @@ export const sessions = {
   actions: {
     setSessions({commit}, payload) {
       commit('setSessions', payload)
-    }
+    },
+    /**
+     * Создает сеанс
+     * @param dispatch
+     * @param payload
+     * @returns {Promise<axios.AxiosResponse<any>>}
+     */
+    async createSession({dispatch}, payload) {
+      const url = process.env.VUE_APP_API_URL
+      try {
+        const response = await axios.post(`${url}/api/sessions`, payload, {
+          headers: {
+            'Accept': 'application/json',
+          }
+        })
+        dispatch('openSnackbar', {
+          message: 'Сеанс успешно добавлен',
+          color: 'success'
+        })
+        return response
+      } catch (error) {
+        dispatch('openSnackbar', {
+          message: 'Ошибка при создании сеанса',
+          color: 'error'
+        })
+      }
+    },
   },
   getters: {
     getSessions(state) {

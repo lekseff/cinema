@@ -177,7 +177,7 @@ import {rules} from '@/../constants'
 import {createStructure} from "../../../../utills";
 
 export default {
-   name: "SettingHallPage",
+   name: "HallSettingPage",
    components: {AppLoader},
    data: () => ({
       rules: rules,
