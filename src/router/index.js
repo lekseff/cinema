@@ -74,8 +74,7 @@ const routes = [
           {
             path: 'create',
             name: 'createMovie',
-            // component: () => import('../views/dashboard/Movies/CreateMoviePage')
-            component: () => import('../views/dashboard/Movies/TestLoadFile')
+            component: () => import('../views/dashboard/Movies/CreateMoviePage')
           }
         ]
       }

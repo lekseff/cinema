@@ -109,7 +109,7 @@
                       :items="ageCategoriesList"
                       v-model="movie.ageCategory"
                       color="deep-orange-lighten-1"
-                      :rules="[rules.requiredSelect]"
+                      :rules="[rules.required]"
                   >
                      <template v-slot:selection="{ item }">
                         <v-chip text="white" class="bg-deep-orange-lighten-1 ma-1">
@@ -135,22 +135,24 @@
                </v-col>
                <v-col cols="12" md="6" lg="3">
                   <v-file-input
-                      v-model="movie.logo"
                       show-size
-                      variant="outlined"
                       label="Постер"
+                      variant="outlined"
+                      v-model="movie.logo"
                       density="comfortable"
+                      accept=".jpg,.jpeg,.webp"
                       color="deep-orange-lighten-1"
                       :rules="[rules.requiredSelect]"
                   ></v-file-input>
                </v-col>
                <v-col cols="12" md="6" lg="3">
                   <v-file-input
-                      v-model="movie.logoMobile"
                       show-size
                       variant="outlined"
-                      label="Мобильный постер"
                       density="comfortable"
+                      label="Мобильный постер"
+                      accept=".jpg,.jpeg,.webp"
+                      v-model="movie.logoMobile"
                       color="deep-orange-lighten-1"
                       :rules="[rules.requiredSelect]"
                   ></v-file-input>
@@ -201,7 +203,7 @@ export default {
          directors: '',
          logoMobile: [],
          countries: [],
-         ageCategory: []
+         ageCategory: null
       },
       rules: rules
    }),
@@ -223,12 +225,24 @@ export default {
       ...mapGetters(['getCountries', 'getGenres', 'getAgeCategories'])
    },
    methods: {
-      ...mapActions(['loadAllCountries', 'loadAllGenres', 'loadAllAgeCategories']),
-
+      ...mapActions(['loadAllCountries', 'loadAllGenres', 'loadAllAgeCategories', 'createMovie']),
+      /**
+       * Валидация и отправка формы
+       * @returns {Promise<void>}
+       */
       async onSubmitForm() {
          const {valid} = await this.$refs.createMovieForm.validate()
          if (!valid) return
-         console.log('send', this.movie)
+
+         const data = {...this.movie}
+         data.logo = data.logo[0]
+         data.logoMobile = data.logoMobile[0]
+
+         const response = await this.createMovie(data)
+
+         if (response && response.status === 200) {
+            await this.$refs.createMovieForm.reset()
+         }
       }
    }
 }

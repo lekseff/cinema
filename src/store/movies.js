@@ -35,6 +35,31 @@ export const movies = {
       }
     },
     /**
+     * Создает новый фильм
+     * @returns {Promise<void>}
+     */
+    async createMovie({dispatch}, payload) {
+      const url = process.env.VUE_APP_API_URL
+      try {
+        const response = await axios.post(`${url}/api/movies`, payload, {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'multipart/form-data',
+          }
+        })
+        dispatch('openSnackbar', {
+          message: 'Фильм успешно создан',
+          color: 'success'
+        })
+        return response
+      } catch (error) {
+        dispatch('openSnackbar', {
+          message: error.response.data.message || 'Ошибка создания фильма',
+          color: 'error'
+        })
+      }
+    },
+    /**
      * Удаляет фильм
      * @param dispatch
      * @param getters
@@ -59,7 +84,7 @@ export const movies = {
         })
         .catch(error => {
           dispatch('openSnackbar', {
-            message: error.message ||'Ошибка удаления фильма',
+            message: error.message || 'Ошибка удаления фильма',
             color: 'error'
           })
         })
