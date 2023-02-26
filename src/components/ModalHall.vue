@@ -2,227 +2,186 @@
    <v-dialog
        v-model="modal"
        max-width="fit-content"
+       :fullscreen="$vuetify.display.xs"
    >
-      <!--        <v-container>-->
-      <v-card class="text-white bg-blue-grey-darken-4 rounded-lg">
+      <!-- Loader -->
+      <AppLoader v-if="loading"/>
 
-         <!-- Шапка окна -->
-         <v-card-text class="d-flex align-center justify-space-between pa-2">
-            <span>Выбор мест | {{ hall.name }}</span>
-            <!-- Кнопка закрыть -->
-            <v-icon
-                size="30"
-                class="text-white"
-                icon="mdi-window-close"
-                @click="onCloseModal"
-            ></v-icon>
-         </v-card-text>
-         <v-divider></v-divider>
+      <!-- Content -->
+      <v-window v-else v-model="step">
+<!-- Шаг 1. Выбор мест -->
+         <v-window-item>
+            <v-card class="text-white bg-blue-grey-darken-4 rounded-lg">
 
-         <!-- Контент -->
-         <div class="d-flex flex-column flex-sm-row">
-            <!-- Блок со схемой зала -->
-            <div class="px-5" style="min-width: 300px">
-               <v-img src="/img/screen.png" width="100%" class="mb-10 mt-2"></v-img>
-               <div class="px-5 pa-4 justify-center" :style="placesGrid">
-                  <!-- Места -->
-                  <v-img
-                      v-for="place in hall.places"
-                      :key="place"
-                      class="place rounded"
-                      src="/img/place.png"
-                      :class="{
-                            'place-occupied': !place.isFree,
-                            'place-selected': place.selected,
-                            'place-vip': place.isVip,
-                            'place-disabled': place.disabled
-                         }"
-                      @click="onSelectPlace(place)"
-                  ></v-img>
-               </div>
+               <!-- Шапка окна -->
+               <v-card-text class="d-flex align-center justify-space-between pa-2">
+                  <div>
+                     <p>Выбор мест | {{ hall.name }}</p>
+                     <p>Начало сеанса: {{ time }}</p>
+                  </div>
+
+                  <!-- Кнопка закрыть -->
+                  <v-icon
+                      size="30"
+                      class="text-white"
+                      icon="mdi-window-close"
+                      @click="onCloseModal"
+                  ></v-icon>
+               </v-card-text>
                <v-divider></v-divider>
-               <!-- Описание мест -->
-               <!-- :FIXME: Переделать на компоненты -->
-               <div class="py-2 d-flex flex-wrap justify-space-around">
-                  <div class="d-inline-flex align-center justify-center pa-1 pa-sm-2">
-                     <span class="place rounded d-inline-block" style="width: 20px; height: 20px"></span>
-                     <p class="ml-2 text-white text-body-2" :style="{whiteSpace: 'nowrap'}">-&nbsp;Свободно</p>
-                  </div>
-                  <div class="d-inline-flex align-center justify-center flex-grow-1 pa-1 pa-sm-2">
-                     <span class="place-vip rounded d-inline-block" style="width: 20px; height: 20px"></span>
-                     <p class="ml-2 text-white text-body-2" :style="{whiteSpace: 'nowrap'}">-&nbsp;VIP</p>
-                  </div>
-                  <div class="d-inline-flex align-center justify-center flex-grow-1 pa-1 pa-sm-2">
-                     <div class="place-occupied rounded" style="width: 20px; height: 20px"></div>
-                     <p class="ml-2 text-white text-body-2" :style="{whiteSpace: 'nowrap'}">-&nbsp;Занято</p>
-                  </div>
-                  <div class="d-inline-flex align-center justify-center flex-grow-1 pa-1 pa-sm-2">
-                     <div class="place-selected rounded" style="width: 20px; height: 20px"></div>
-                     <p class="ml-2 text-white text-body-2" :style="{whiteSpace: 'nowrap'}">-&nbsp;Выбрано</p>
-                  </div>
-               </div>
-               <v-divider v-if="$vuetify.display.xs"></v-divider>
-            </div>
-            <v-divider vertical></v-divider>
 
-            <!-- Блок с выбранными местами -->
-            <v-card
-                class="d-flex flex-column bg-transparent pa-4 pa-sm-3"
-                width="100%"
-                :max-width="$vuetify.display.xs ? '' : '280px'"
-                flat
-            >
-               <!-- Карточки выбранных мест -->
-               <div class="flex-grow-1">
-                  <ModalHallSelectedCard v-if="true"/>
-                  <v-card-subtitle v-else class="text-center flex-grow-1">
-                     Места не выбраны
-                  </v-card-subtitle>
-               </div>
-               <!-- Блок итого и продолжить -->
-               <div v-if="true">
-                  <v-divider></v-divider>
-                  <p class="py-2">Итого: 500 ₽</p>
-                  <v-btn color="deep-orange-lighten-1" block flat>Продолжить</v-btn>
+               <!-- Контент -->
+               <div class="d-flex flex-column flex-sm-row">
+                  <!-- Блок со схемой зала -->
+                  <div class="px-5" style="min-width: 300px">
+                     <v-img src="/img/screen.png" width="100%" class="mb-10 mt-2"></v-img>
+                     <div class="px-5 pa-4 justify-center" :style="placesGrid">
+                        <!-- Места -->
+                        <v-img
+                            v-for="place in session.places"
+                            :key="place"
+                            class="place rounded"
+                            src="/img/place.png"
+                            width="100%"
+                            :class="{
+                                    'place-occupied': !place.isFree,
+                                    'place-selected': place.selected,
+                                    'place-vip': place.isVip,
+                                    'place-disabled': place.disabled
+                                 }"
+                            @click="onSelectPlace(place)"
+                        ></v-img>
+                     </div>
+                     <v-divider></v-divider>
+                     <!-- Описание мест -->
+                     <!-- :FIXME: Переделать на компоненты -->
+                     <div class="py-2 d-flex flex-wrap justify-space-around">
+                        <div class="d-inline-flex align-center justify-center pa-1 pa-sm-2">
+                           <span class="place rounded d-inline-block" style="width: 20px; height: 20px"></span>
+                           <p class="ml-2 text-white text-body-2" :style="{whiteSpace: 'nowrap'}">-&nbsp;Свободно</p>
+                        </div>
+                        <div class="d-inline-flex align-center justify-center flex-grow-1 pa-1 pa-sm-2">
+                           <span class="place-vip rounded d-inline-block" style="width: 20px; height: 20px"></span>
+                           <p class="ml-2 text-white text-body-2" :style="{whiteSpace: 'nowrap'}">-&nbsp;VIP</p>
+                        </div>
+                        <div class="d-inline-flex align-center justify-center flex-grow-1 pa-1 pa-sm-2">
+                           <div class="place-occupied rounded" style="width: 20px; height: 20px"></div>
+                           <p class="ml-2 text-white text-body-2" :style="{whiteSpace: 'nowrap'}">-&nbsp;Занято</p>
+                        </div>
+                        <div class="d-inline-flex align-center justify-center flex-grow-1 pa-1 pa-sm-2">
+                           <div class="place-selected rounded" style="width: 20px; height: 20px"></div>
+                           <p class="ml-2 text-white text-body-2" :style="{whiteSpace: 'nowrap'}">-&nbsp;Выбрано</p>
+                        </div>
+                     </div>
+                     <v-divider v-if="$vuetify.display.xs"></v-divider>
+                  </div>
+                  <v-divider vertical></v-divider>
+
+                  <!-- Блок с выбранными местами -->
+                  <v-card
+                      class="d-flex flex-column bg-transparent pa-4 pa-sm-3"
+                      width="100%"
+                      :max-width="$vuetify.display.xs ? '' : '280px'"
+                      flat
+                  >
+                     <!-- Карточки выбранных мест -->
+                     <div class="flex-grow-1">
+                        <v-card-subtitle v-if="!selectedPlaces.length" class="text-center">
+                           Места не выбраны
+                        </v-card-subtitle>
+
+                        <div v-else>
+                           <ModalHallSelectedCard
+                               v-for="session in selectedPlaces"
+                               :key="session.id"
+                               :session="session"
+                               @remove-place="removePlaceCard"
+                           />
+                        </div>
+                     </div>
+                     <!-- Блок итого и продолжить -->
+                     <div>
+                        <v-divider></v-divider>
+                        <p v-if="selectedPlaces.length" class="py-2">
+                           Итого: {{ totalPrice }} ₽
+                        </p>
+                        <v-btn
+                            flat
+                            block
+                            color="deep-orange-lighten-1"
+                            :disabled="!selectedPlaces.length"
+                            @click="onNextStep"
+                        >
+                           Продолжить
+                        </v-btn>
+                     </div>
+                  </v-card>
                </div>
             </v-card>
-         </div>
-      </v-card>
-      <!--        </v-container>-->
+         </v-window-item>
+
+         <!-- Шаг 2 -->
+         <v-window-item>
+            <ModalHallConfirm
+                :places="selectedPlaces"
+                :hall="hall.name"
+                :totalPrice="totalPrice"
+                @nextStep="onNextStep"
+                @prevStep="onPrevStep"
+            />
+         </v-window-item>
+      </v-window>
    </v-dialog>
 </template>
 
 <script>
-import ModalHallSelectedCard from "@/components/ModalHallSelectedCard";
+import {mapGetters, mapActions} from 'vuex'
+import ModalHallSelectedCard from '@/components/ModalHallSelectedCard'
+import ModalHallConfirm from '@/components/ModalHallConfirm'
+import AppLoader from '@/components/AppLoader'
+import {MODAL} from '../../constants'
+import {getTimeFromString} from "../../utills";
 
 export default {
    name: "ModalHall",
-   components: {ModalHallSelectedCard},
+   components: {ModalHallSelectedCard, AppLoader, ModalHallConfirm},
    data: () => ({
-      modal: false,
+      step: 0, // Шаг оформления
+      loading: false,
+      selectedPlaces: [],  // Выбранные пользователем места
+      session: {
+         id: '',
+         date: '',
+         places: []
+      },
       hall: {
-         name: 'Зал 1',
-         rows: 4,
-         columns: 4,
-         places: [
-            {
-               id: 1,
-               isFree: false,
-               selected: false,
-               isVip: false,
-               disabled: false
-            },
-            {
-               id: 2,
-               isFree: false,
-               selected: false,
-               isVip: true,
-               disabled: false
-            },
-            {
-               id: 3,
-               isFree: false,
-               selected: false,
-               isVip: false,
-               disabled: false
-            },
-            {
-               id: 4,
-               isFree: true,
-               selected: false,
-               isVip: false,
-               disabled: false
-            },
-            {
-               id: 5,
-               isFree: true,
-               selected: false,
-               isVip: false,
-               disabled: false
-            },
-            {
-               id: 6,
-               isFree: true,
-               selected: false,
-               isVip: true,
-               disabled: false
-            },
-            {
-               id: 7,
-               isFree: true,
-               selected: false,
-               isVip: true,
-               disabled: false
-            },
-            {
-               id: 8,
-               isFree: true,
-               selected: false,
-               isVip: false,
-               disabled: false
-            },
-            {
-               id: 9,
-               isFree: true,
-               selected: false,
-               isVip: false,
-               disabled: false
-            },
-            {
-               id: 10,
-               isFree: true,
-               selected: false,
-               isVip: false,
-               disabled: false
-            },
-            {
-               id: 11,
-               isFree: true,
-               selected: false,
-               isVip: false,
-               disabled: false
-            },
-            {
-               id: 12,
-               isFree: true,
-               selected: false,
-               isVip: false,
-               disabled: false
-            },
-            {
-               id: 13,
-               isFree: true,
-               selected: false,
-               isVip: false,
-               disabled: false
-            },
-            {
-               id: 14,
-               isFree: true,
-               selected: false,
-               isVip: false,
-               disabled: true
-            },
-            {
-               id: 15,
-               isFree: true,
-               selected: false,
-               isVip: false,
-               disabled: true
-            },
-            {
-               id: 16,
-               isFree: true,
-               selected: false,
-               isVip: false,
-               disabled: false
-            }
-         ]
+         id: '',
+         name: '',
+         rows: null,
+         places: null,
+         price: null,
+         priceVip: null,
       }
    }),
    methods: {
+      ...mapActions(['closeModal', 'loadSessionById', 'loadHallById']),
+      /**
+       * Следующий шаг оформления
+       */
+      onNextStep() {
+         this.step += 1
+      },
+      /**
+       * Предыдущий шаг оформления
+       */
+      onPrevStep() {
+        this.step -= 1
+      },
+      /**
+       * Закрывает модалку
+       */
       onCloseModal() {
-         this.modal = false
+         this.closeModal(MODAL.addHall)
       },
       /**
        * Выбор места
@@ -230,16 +189,78 @@ export default {
        */
       onSelectPlace(selectedPlace) {
          if (selectedPlace.disabled || !selectedPlace.isFree) return
-         const place = this.hall.places.find(p => p.id === selectedPlace.id)
-         place.selected = !place.selected
+         const place = this.session.places.find(p => p.id === selectedPlace.id)
+
+         if (place.selected) {
+            this.removePlaceCard(place.id)
+         } else {
+            place.selected = true
+            this.addPlaceCard(place)
+         }
+      },
+      /**
+       * Добавляет выбраное место список карточек сбоку
+       * @param place
+       */
+      addPlaceCard(place) {
+         const price = place.isVip ? this.hall.priceVip : this.hall.price  // Стоимость места
+         const row = Math.floor((place.id - 1) / this.hall.places) + 1  // номер ряда
+         // Данные для карточки выбранного места
+         const data = {
+            id: place.id,
+            isVip: place.isVip,
+            row: row,
+            price
+         }
+
+         this.selectedPlaces.push(data)
+      },
+      /**
+       * Удаляет из блока карточек и схемы зала
+       * @param id
+       */
+      removePlaceCard(id) {
+         this.selectedPlaces = this.selectedPlaces.filter(s => s.id !== id)
+         const place = this.session.places.find(p => p.id === id)
+         place.selected = false
+      },
+      /**
+       * Загружает данные сеанса и зала
+       * @returns {Promise<void>}
+       */
+      async loadData() {
+         this.loading = true
+         try {
+            const session = await this.loadSessionById(this.selectedSession.id)
+            const hall = await this.loadHallById(this.selectedSession.hallId)
+            this.hall = {...hall}
+            this.session = {
+               ...session,
+               places: JSON.parse(session.places)
+            }
+         } catch (error) {
+            console.log(error)
+         } finally {
+            this.loading = false
+         }
       }
    },
-   mounted() {
-      setTimeout(() => {
-         this.modal = true
-      }, 300)
-   },
    computed: {
+      ...mapGetters({
+         modalStatus: 'getModalStatus',
+         selectedSession: 'getSelectedSession'
+      }),
+      /**
+       * Управление модалкой
+       */
+      modal: {
+         get() {
+            return this.modalStatus(MODAL.addHall)
+         },
+         set() {
+            this.onCloseModal()
+         }
+      },
       /**
        * Сетка мест зала
        * @returns {{gridTemplateRows: string, gridTemplateColumns: string, display: string, gap: string}}
@@ -247,11 +268,31 @@ export default {
       placesGrid() {
          return {
             display: 'grid',
-            gap: '5px',
+            gap: '6px',
             gridTemplateRows: `repeat(${this.hall.rows}, minmax(10px, auto))`,
-            gridTemplateColumns: `repeat(${this.hall.columns}, minmax(10px, 26px))`
+            gridTemplateColumns: `repeat(${this.hall.places}, minmax(10px, 26px))`
          }
       },
+      /**
+       * Общая стоимость билетов
+       * @returns {*}
+       */
+      totalPrice() {
+         return this.selectedPlaces.reduce((acc, p) => {
+            return acc += p.price
+         }, 0)
+      },
+      time() {
+         return getTimeFromString(this.session.date)
+      }
+   },
+   watch: {
+      modal() {
+         if (this.modal) {
+            this.selectedPlaces = []
+            this.loadData()
+         }
+      }
    }
 }
 </script>

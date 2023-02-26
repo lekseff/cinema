@@ -72,26 +72,28 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import {arrayToString} from '../../utills'
+import {MODAL} from '../../constants'
 
 export default {
    name: "MovieCard",
    props: ['movie'],
-   data: () => ({
-      selected: null
-   }),
+   // data: () => ({
+   //    selected: null
+   // }),
    methods: {
+      ...mapActions(['openModal', 'setSelectedSession']),
       /**
        * Действие по клику на кнопку сеанса
        * @param movie
-       * @param id
+       * @param session
        */
       onSelect(movie, session) {
-         console.log(movie.name)
-         console.log('session', session)
+         this.setSelectedSession({...session})  // Выбранный пользователем сеанс
+         this.openModal(MODAL.addHall)
       }
    },
-   // :FIXME Эти одинаковые методы переделать
    computed: {
       countries() {
          if (!this.movie.countries) return ''

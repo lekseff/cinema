@@ -2,16 +2,23 @@ import axios from "axios";
 
 export const sessions = {
   state: () => ({
-    sessions: {},
+    sessions: {}, // Все сеансы с определнной даты, которые показываются на сайте
+    selectedSession: {} // Сеанс выбранный пользователем
   }),
   mutations: {
     setSessions(state, payload) {
       state.sessions = payload
+    },
+    setSelectedSession(state, payload) {
+      state.selectedSession = payload
     }
   },
   actions: {
     setSessions({commit}, payload) {
       commit('setSessions', payload)
+    },
+    setSelectedSession({commit}, payload) {
+      commit('setSelectedSession', payload)
     },
     /**
      * Создает сеанс
@@ -39,10 +46,57 @@ export const sessions = {
         })
       }
     },
+    async loadSessionById(_, id) {
+      const url = process.env.VUE_APP_API_URL
+      try {
+        const response = await axios.get(`${url}/api/sessions/${id}`)
+        // console.log(response.data)
+        // dispatch('setSelectedSession', response.data)
+        return response.data
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    /**
+     * Получает сеансы для временной шкалы админки
+     * @param dispatch
+     * @returns {Promise<axios.AxiosResponse<any>>}
+     */
+    async loadSessionsTimetable({dispatch}) {
+      const url = process.env.VUE_APP_API_URL
+      try {
+        return axios.get(`${url}/api/sessions/timetable`)
+      } catch (error) {
+        console.log(error)
+        dispatch('openSnackbar', {
+          message: 'Ошибка загрузки сеансов',
+          color: 'error'
+        })
+      }
+    },
+    async removeSession({dispatch}, id) {
+      try {
+        const url = process.env.VUE_APP_API_URL
+        await axios.delete(`${url}/api/sessions/${id}`)
+        dispatch('openSnackbar', {
+          message: 'Сеанс успешно удален',
+          color: 'success'
+        })
+      } catch (error) {
+        console.log(error)
+        dispatch('openSnackbar', {
+          message: 'Ошибка удаления сеанса',
+          color: 'error'
+        })
+      }
+    }
   },
   getters: {
     getSessions(state) {
       return state.sessions
+    },
+    getSelectedSession(state) {
+      return state.selectedSession
     },
     /**
      * Получает сеансы на определенную дату

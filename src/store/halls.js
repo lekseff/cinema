@@ -12,9 +12,6 @@ export const halls = {
     setHall(state, payload) {
       state.hall = payload
     },
-    // addHall(state, payload) {
-    //   state.halls.push(payload)
-    // }
   },
   actions: {
     setHalls({commit}, payload) {
@@ -23,14 +20,6 @@ export const halls = {
     setHall({commit}, payload) {
       commit('setHall', payload)
     },
-    // /**
-    //  * Добавляет зал в store
-    //  * @param commit
-    //  * @param payload
-    //  */
-    // addHall({commit}, payload) {
-    //   commit('addHall', payload)
-    // },
     /**
      * Получает список всех залов с сервера
      * @param commit
@@ -53,10 +42,13 @@ export const halls = {
      */
     async loadHallById({commit}, payload) {
       const url = process.env.VUE_APP_API_URL
-      await axios.get(`${url}/api/halls/${payload}`)
-        .then((response) => {
-          commit('setHall', response.data.data)
-        })
+      try {
+        const response = await axios.get(`${url}/api/halls/${payload}`)
+        commit('setHall', response.data.data)
+        return response.data.data
+      } catch (error) {
+        console.log(error)
+      }
     },
     /**
      * Создает зал, метод POST

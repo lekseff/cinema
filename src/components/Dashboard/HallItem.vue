@@ -35,6 +35,7 @@
 <script>
 export default {
    name: 'HallItem',
+   emits: ['change-status', 'remove'],
    props: ['hall'],
    methods: {
       onChangeStatus(hall) {
