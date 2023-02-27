@@ -4,14 +4,14 @@
       <AppLoader v-if="loading"/>
       <!-- Карточка фильма -->
       <v-card v-else class="bg-transparent" flat>
-         <div class="d-flex">
+         <div class="d-flex flex-column flex-md-row">
             <!-- Баннер -->
             <v-img
                 cover
-                width="400"
-                :src="movie.logo"
-                aspect-ratio="0.66"
-                class="flex-grow-0 rounded-lg"
+                :width="$vuetify.display.smAndDown ? '100%' : 400"
+                :src="$vuetify.display.smAndDown ? movie.logoMobile : movie.logo"
+                :aspect-ratio="$vuetify.display.smAndDown ? 2 : 0.66"
+                class="flex-grow-0 rounded-lg mb-4 mb-md-0"
                 :alt="movie.name"
             >
                <!-- Индикатор загрузки изображения -->
@@ -25,7 +25,7 @@
                </template>
             </v-img>
             <!-- Информация -->
-            <div class="flex-grow-1 pl-10">
+            <div class="flex-grow-1 pl-0 pl-md-10">
 
                <v-card-title class="text-white text-h4 pb-4">
                   {{ movie.name }}

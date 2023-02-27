@@ -40,7 +40,7 @@ import AppSlider from '@/components/AppSlider'
 import AppSession from '@/components/AppSession'
 import MovieCard from '@/components/MovieCard'
 import AppFooter from '@/components/AppFooter'
-import ModalHall from '@/components/ModalHall'
+import ModalHall from '@/components/ModalHall/ModalHall'
 
 export default {
    name: 'HomePage',

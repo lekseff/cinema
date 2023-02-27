@@ -1,11 +1,12 @@
 <template>
    <v-dialog
        v-model="modal"
-       max-width="fit-content"
+       :max-width="$vuetify.display.xs ? 'auto' : 'fit-content'"
        :fullscreen="$vuetify.display.xs"
+       scrollable
    >
       <!-- Loader -->
-      <AppLoader v-if="loading"/>
+      <AppLoader v-if="loading" style="width: 100%"/>
 
       <!-- Content -->
       <v-window v-else v-model="step">
@@ -143,12 +144,12 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
-import ModalHallSelectedCard from '@/components/ModalHallSelectedCard'
-import ModalHallConfirm from '@/components/ModalHallConfirm'
-import ModalHallTicket from "@/components/ModalHallTicket";
+import ModalHallSelectedCard from '@/components/ModalHall/ModalHallSelectedCard'
+import ModalHallConfirm from '@/components/ModalHall/ModalHallConfirm'
+import ModalHallTicket from "@/components/ModalHall/ModalHallTicket";
 import AppLoader from '@/components/AppLoader'
-import {MODAL} from '../../constants'
-import {getTimeFromString} from "../../utills";
+import {MODAL} from '../../../constants'
+import {getTimeFromString} from "../../../utills";
 
 export default {
    name: "ModalHall",
