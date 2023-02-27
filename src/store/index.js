@@ -9,7 +9,8 @@ import {modals} from '@/store/modals' // Модалки
 import {snackbar} from '@/store/snackbar'  // Всплывающие уведомления
 import {countries} from '@/store/countries'  // Список стран для фильмов
 import {genres} from '@/store/genres'  // Список жанров для фильма
-import {ageCategories} from '@/store/ageCategories'
+import {ageCategories} from '@/store/ageCategories' // Возрастные категории для фильмов
+import {orders} from '@/store/orders' // Оформление заказа
 
 
 export default createStore({
@@ -39,15 +40,16 @@ export default createStore({
     }
   },
   modules: {
-    movies,
-    dates,
-    sessions,
     halls,
+    dates,
+    movies,
     loader,
     modals,
+    genres,
+    orders,
+    sessions,
     snackbar,
     countries,
-    genres,
     ageCategories,
   }
 })

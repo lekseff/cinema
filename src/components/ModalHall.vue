@@ -9,7 +9,7 @@
 
       <!-- Content -->
       <v-window v-else v-model="step">
-<!-- Шаг 1. Выбор мест -->
+         <!-- Шаг 1. Выбор мест -->
          <v-window-item>
             <v-card class="text-white bg-blue-grey-darken-4 rounded-lg">
 
@@ -31,7 +31,7 @@
                <v-divider></v-divider>
 
                <!-- Контент -->
-               <div class="d-flex flex-column flex-sm-row">
+               <div class="d-flex flex-column flex-sm-row flex-grow-1 flex-shrink-0">
                   <!-- Блок со схемой зала -->
                   <div class="px-5" style="min-width: 300px">
                      <v-img src="/img/screen.png" width="100%" class="mb-10 mt-2"></v-img>
@@ -79,9 +79,8 @@
 
                   <!-- Блок с выбранными местами -->
                   <v-card
-                      class="d-flex flex-column bg-transparent pa-4 pa-sm-3"
-                      width="100%"
-                      :max-width="$vuetify.display.xs ? '' : '280px'"
+                      class="d-flex flex-column bg-transparent pa-4 pa-sm-3 flex-shrink-0"
+                      :min-width="$vuetify.display.xs ? '' : '290px'"
                       flat
                   >
                      <!-- Карточки выбранных мест -->
@@ -89,7 +88,6 @@
                         <v-card-subtitle v-if="!selectedPlaces.length" class="text-center">
                            Места не выбраны
                         </v-card-subtitle>
-
                         <div v-else>
                            <ModalHallSelectedCard
                                v-for="session in selectedPlaces"
@@ -120,7 +118,7 @@
             </v-card>
          </v-window-item>
 
-         <!-- Шаг 2 -->
+         <!-- Шаг 2 Подтверждение выбора -->
          <v-window-item>
             <ModalHallConfirm
                 :places="selectedPlaces"
@@ -128,6 +126,15 @@
                 :totalPrice="totalPrice"
                 @nextStep="onNextStep"
                 @prevStep="onPrevStep"
+            />
+         </v-window-item>
+
+         <!-- Шаг 3 Электронный билет -->
+         <v-window-item>
+            <ModalHallTicket
+                :sessionId="session.id"
+                :places="selectedPlaces"
+                @closeModal="onCloseModal"
             />
          </v-window-item>
       </v-window>
@@ -138,19 +145,20 @@
 import {mapGetters, mapActions} from 'vuex'
 import ModalHallSelectedCard from '@/components/ModalHallSelectedCard'
 import ModalHallConfirm from '@/components/ModalHallConfirm'
+import ModalHallTicket from "@/components/ModalHallTicket";
 import AppLoader from '@/components/AppLoader'
 import {MODAL} from '../../constants'
 import {getTimeFromString} from "../../utills";
 
 export default {
    name: "ModalHall",
-   components: {ModalHallSelectedCard, AppLoader, ModalHallConfirm},
+   components: {ModalHallSelectedCard, AppLoader, ModalHallConfirm, ModalHallTicket},
    data: () => ({
       step: 0, // Шаг оформления
       loading: false,
       selectedPlaces: [],  // Выбранные пользователем места
       session: {
-         id: '',
+         id: null,
          date: '',
          places: []
       },
@@ -175,13 +183,23 @@ export default {
        * Предыдущий шаг оформления
        */
       onPrevStep() {
-        this.step -= 1
+         this.step -= 1
+      },
+      /**
+       * Сброс процесса оформления на начальный уровень
+       */
+      resetStep() {
+         // Чтобы не было моргания окна
+         setTimeout(() => {
+            this.step = 0;
+         }, 200)
       },
       /**
        * Закрывает модалку
        */
       onCloseModal() {
          this.closeModal(MODAL.addHall)
+         this.resetStep()
       },
       /**
        * Выбор места
@@ -199,7 +217,7 @@ export default {
          }
       },
       /**
-       * Добавляет выбраное место список карточек сбоку
+       * Добавляет выбранное место список карточек сбоку
        * @param place
        */
       addPlaceCard(place) {
@@ -209,8 +227,8 @@ export default {
          const data = {
             id: place.id,
             isVip: place.isVip,
-            row: row,
-            price
+            price,
+            row
          }
 
          this.selectedPlaces.push(data)
@@ -282,6 +300,10 @@ export default {
             return acc += p.price
          }, 0)
       },
+      /**
+       * Форматирует время сеанса
+       * @returns {string}
+       */
       time() {
          return getTimeFromString(this.session.date)
       }

@@ -160,25 +160,6 @@ export default {
          this.closeModal(MODAL.addHall)
          this.$refs.addHallForm.reset()
       },
-      // :FIXME Удалить коммент
-      // /**
-      //  * Создает json структуру зала
-      //  * @returns {string} - json
-      //  */
-      // createStructure() {
-      //    const structure = []
-      //    const count = this.hall.rows * this.hall.places
-      //    for (let i = 1; i <= count; i++) {
-      //       structure.push({
-      //          id: i,
-      //          isFree: true,
-      //          selected: false,
-      //          isVip: false,
-      //          disabled: false
-      //       })
-      //    }
-      //    return JSON.stringify(structure)
-      // },
       /**
        * Отправка данных формы
        */

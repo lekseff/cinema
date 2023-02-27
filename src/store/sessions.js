@@ -74,6 +74,12 @@ export const sessions = {
         })
       }
     },
+    /**
+     * Удаление сеанса
+     * @param dispatch
+     * @param id
+     * @returns {Promise<void>}
+     */
     async removeSession({dispatch}, id) {
       try {
         const url = process.env.VUE_APP_API_URL

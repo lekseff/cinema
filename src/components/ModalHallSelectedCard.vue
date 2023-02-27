@@ -8,7 +8,7 @@
             {{ info }}
          </span>
          <span>
-            {{ session.price }}
+            {{ session.price }} ₽
          </span>
       </v-card-text>
       <v-card-actions class="pa-0">
