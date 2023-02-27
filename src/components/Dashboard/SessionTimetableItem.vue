@@ -41,7 +41,7 @@
 
 <script>
 export default {
-   name: 'HallTimetableItem',
+   name: 'SessionTimetableItem',
    props: {
       sessions: {
          type: Object,

@@ -84,8 +84,8 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
-import {DateTime} from "luxon"
+import {mapActions, mapGetters} from 'vuex'
+import {DateTime} from 'luxon'
 import {rules} from '@/../constants'
 
 export default {
@@ -102,7 +102,6 @@ export default {
    mounted() {
       this.loadAllMovies()
       this.getHalls()
-
    },
    computed: {
       ...mapGetters({

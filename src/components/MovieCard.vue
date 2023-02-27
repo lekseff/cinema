@@ -77,11 +77,8 @@ import {arrayToString} from '../../utills'
 import {MODAL} from '../../constants'
 
 export default {
-   name: "MovieCard",
+   name: 'MovieCard',
    props: ['movie'],
-   // data: () => ({
-   //    selected: null
-   // }),
    methods: {
       ...mapActions(['openModal', 'setSelectedSession']),
       /**

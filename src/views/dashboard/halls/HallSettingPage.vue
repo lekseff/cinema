@@ -171,13 +171,13 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
-import AppLoader from "@/components/AppLoader";
+import {mapActions, mapGetters} from 'vuex'
+import AppLoader from '@/components/AppLoader'
 import {rules} from '@/../constants'
-import {createStructure} from "../../../../utills";
+import {createStructure} from '../../../../utills'
 
 export default {
-   name: "HallSettingPage",
+   name: 'HallSettingPage',
    components: {AppLoader},
    data: () => ({
       rules: rules,

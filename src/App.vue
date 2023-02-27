@@ -1,7 +1,6 @@
 <template>
    <v-app>
-     <component :is="layout"></component>
-<!--      <MainLayout/>-->
+      <component :is="layout"></component>
    </v-app>
 </template>
 
@@ -16,15 +15,15 @@ export default {
    name: 'App',
    components: {MainLayout, EmptyLayout, DashboardLayout},
    mounted() {
-      this.getCinemaDates ()
+      this.getCinemaDates()
    },
    methods: {
       ...mapActions(['getCinemaDates']),
    },
-  computed: {
-    layout () {
-       return (this.$route.meta.layout || 'empty') + '-layout'
-     }
-  }
+   computed: {
+      layout() {
+         return (this.$route.meta.layout || 'empty') + '-layout'
+      }
+   }
 }
 </script>

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const sessions = {
   state: () => ({
-    sessions: {}, // Все сеансы с определнной даты, которые показываются на сайте
+    sessions: {}, // Все сеансы с определенной даты, которые показываются на сайте
     selectedSession: {} // Сеанс выбранный пользователем
   }),
   mutations: {
@@ -50,8 +50,6 @@ export const sessions = {
       const url = process.env.VUE_APP_API_URL
       try {
         const response = await axios.get(`${url}/api/sessions/${id}`)
-        // console.log(response.data)
-        // dispatch('setSelectedSession', response.data)
         return response.data
       } catch (error) {
         console.log(error)
@@ -67,9 +65,8 @@ export const sessions = {
       try {
         return axios.get(`${url}/api/sessions/timetable`)
       } catch (error) {
-        console.log(error)
         dispatch('openSnackbar', {
-          message: 'Ошибка загрузки сеансов',
+          message: error.response.data.message || 'Ошибка загрузки сеансов',
           color: 'error'
         })
       }
@@ -83,15 +80,16 @@ export const sessions = {
     async removeSession({dispatch}, id) {
       try {
         const url = process.env.VUE_APP_API_URL
-        await axios.delete(`${url}/api/sessions/${id}`)
+        const response = await axios.delete(`${url}/api/sessions/${id}`)
         dispatch('openSnackbar', {
           message: 'Сеанс успешно удален',
           color: 'success'
         })
+        return response
       } catch (error) {
         console.log(error)
         dispatch('openSnackbar', {
-          message: 'Ошибка удаления сеанса',
+          message: error.response.data.message || 'Ошибка удаления сеанса',
           color: 'error'
         })
       }

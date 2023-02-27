@@ -42,10 +42,10 @@
 </template>
 
 <script>
-import ItemHall from "@/components/Dashboard/HallItem";
-import AppLoader from "@/components/AppLoader";
-import AddHallModal from "@/components/Dashboard/ModalAddHall";
-import {mapActions, mapGetters} from "vuex";
+import ItemHall from '@/components/Dashboard/HallItem'
+import AppLoader from '@/components/AppLoader'
+import AddHallModal from '@/components/Dashboard/ModalAddHall'
+import {mapActions, mapGetters} from 'vuex'
 import {MODAL} from '@/../constants'
 
 export default {

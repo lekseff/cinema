@@ -1,14 +1,14 @@
 <template>
-  <v-container>
-    <h1>Today</h1>
-    <h5>В кино сегодня</h5>
-    <router-link :to="{name: 'home'}">На главную</router-link>
-  </v-container>
+   <v-container>
+      <h1>Today</h1>
+      <h5>В кино сегодня</h5>
+      <router-link :to="{name: 'home'}">На главную</router-link>
+   </v-container>
 </template>
 
 <script>
 export default {
-  name: "TodayPage"
+   name: 'TodayPage'
 }
 </script>
 

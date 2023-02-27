@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
+import {mapActions, mapGetters} from 'vuex'
 import {MODAL, rules} from '@/../constants'
 import {createStructure} from "../../../utills";
 

@@ -5,7 +5,7 @@
 
 <script>
 export default {
-   name: "IndexPage.vue"
+   name: 'IndexPage.vue'
 }
 </script>
 

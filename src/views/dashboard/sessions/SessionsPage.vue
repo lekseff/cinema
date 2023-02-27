@@ -17,8 +17,8 @@
             {{ date.split('-').reverse().join('-') }}
          </h6>
 
-         <!-- Сеансы не определнную дату -->
-         <HallTimetable :sessions="sessions[date]"/>
+         <!-- Сеансы на определенную дату -->
+         <SessionTimetable :sessions="sessions[date]"/>
       </v-sheet>
    </v-container>
 </template>
@@ -26,22 +26,24 @@
 <script>
 import {mapActions} from 'vuex'
 import AppLoader from '@/components/AppLoader'
-import HallTimetable from '@/views/dashboard/halls/HallTimetable'
+import SessionTimetable from '@/components/Dashboard/SessionTimetable'
 
 export default {
    name: 'SessionsPage',
-   components: {AppLoader, HallTimetable},
+   components: {AppLoader, SessionTimetable},
    data: () => ({
-      loading: false,
+      loading: true,
       sessions: [],
    }),
    mounted() {
-      this.loading = true
       this.loadSessionsTimetable()
           .then((response) => {
-             this.sessions = response.data
-             this.loading = false
-          })
+             if (response && response.status === 200) {
+                this.sessions = response.data
+             }
+          }).finally(() => {
+         this.loading = false
+      })
    },
    computed: {
       /**

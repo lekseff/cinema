@@ -1,4 +1,3 @@
-// :FIXME Может удалить Luxon
 import {DateTime} from "luxon";
 
 // /**

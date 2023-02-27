@@ -10,7 +10,7 @@
       </h6>
 
       <!-- Временная линия -->
-      <HallTimetableItem
+      <SessionTimetableItem
           :sessions="sessions[hallId]"
           @remove="onRemoveSession"
       />
@@ -19,12 +19,12 @@
 
 <script>
 import {mapActions} from 'vuex'
-import HallTimetableItem from '@/views/dashboard/halls/HallTimetableItem'
+import SessionTimetableItem from '@/components/Dashboard/SessionTimetableItem'
 
 export default {
-   name: 'HallTimetable',
+   name: 'SessionTimetable',
    props: ['sessions'],
-   components: {HallTimetableItem},
+   components: {SessionTimetableItem},
    computed: {
       /**
        * id залов сеансов на текущую дату
@@ -40,11 +40,12 @@ export default {
        * Удаляет сеанс
        * @param id
        */
-      // :FIXME Поправить удаление с перезагрузкой страницы
       onRemoveSession(id) {
          this.removeSession(id)
-             .then(() => {
-                this.$router.go(0) // Обновляем страницу
+             .then((response) => {
+                if (response.status === 200) {
+                   this.$router.go(0) // Обновляем страницу
+                }
              })
       },
    }
@@ -52,6 +53,5 @@ export default {
 </script>
 
 <style scoped>
-
 
 </style>

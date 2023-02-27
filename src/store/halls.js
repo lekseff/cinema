@@ -107,8 +107,6 @@ export const halls = {
         }
       }).then(() => {
         dispatch('getHalls')
-        // :FIXME Попробовать убрать запрос на получение по id. Можно взять из store после getHalls
-        dispatch('loadHallById', id)  // Для обновления выбранного после изменения параметров
         dispatch('openSnackbar', {
           message: 'Изменения сохранены',
           color: 'success'
