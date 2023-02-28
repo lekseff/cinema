@@ -1,24 +1,24 @@
-# cinema
-
 ## Project setup
-```
-npm install
-```
+Проект состоит из двух частей.
+* Frontend на Vue 3 и vuetify 3
+* Backend API на Laravel 9
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Запуск
+Для запуска необходимо склонировать два репозитория [fronted](https://github.com/lekseff/cinema) и [backend](https://github.com/lekseff/cinema-api)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Frontend
+* Необходимо установить зависимости через "npm i" или "yarn install".
+* После установки запустить проект командой "npm run dev" или "yarn dev".
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Backend
+* Необходимо установить зависимости composer командой "composer install".
+* Далее установить зависимости через "npm i" или "yarn install".
+* Переименовать .env.example в .env
+* Настроить подключение к базе данных. Я использовал XAMPP и базу MySQL с именем 'cinema'. Думаю тут проблем не будет)
+* После подключения и создания базы данных необходимо выполнить миграции и запустить сиды.
+  Команда php artisan migrate --seed. Будут созданы таблицы, а сиды заполнят поля необходимы для создания фильма.
+* Фильмы, залы, сеансы и элементы слайдера нужно добавлять вручную из админки. Адрес админки '/dashboard'. Данные и фото для них находятся в папке images-data.
+* После добавления фильмов, залов и сеансов они появятся на сайте и можно будет выбирать места)
+* Локальный запускается командой "php artisan serve"
+
