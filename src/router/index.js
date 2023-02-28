@@ -94,6 +94,23 @@ const routes = [
             component: () => import('../views/dashboard/sessions/SessionCreate')
           }
         ]
+      },
+      {
+        path: 'slider',
+        name: 'indexSlider',
+        component: () => import('../views/dashboard/slider/IndexPage'),
+        children: [
+          {
+            path: 'control',
+            name: 'controlSlider',
+            component: () => import('../views/dashboard/slider/SliderControl')
+          },
+          {
+            path: 'create',
+            name: 'createSlider',
+            component: () => import('../views/dashboard/slider/SliderCreate')
+          }
+        ]
       }
     ]
   },

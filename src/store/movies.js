@@ -30,6 +30,7 @@ export const movies = {
       try {
         const response = await axios.get(`${url}/api/movies`)
         dispatch('setAllMovies', response.data.data)
+        return response
       } catch (error) {
         console.log(error)
       }

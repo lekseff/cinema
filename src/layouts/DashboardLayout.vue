@@ -80,7 +80,28 @@
                   <v-icon class="ma-0 mr-3" color="white" size="small">mdi-plus-thick</v-icon>
                </template>
             </v-list-item>
+         </v-list-group>
 
+         <v-list-group value="slider" :opened="true">
+            <template v-slot:activator="{ props }">
+               <v-list-item
+                   v-bind="props"
+                   prepend-icon="mdi-filmstrip"
+                   title="Слайдер"
+               ></v-list-item>
+            </template>
+
+            <v-list-item title="Управление" :to="{name: 'controlSlider'}">
+               <template v-slot:prepend>
+                  <v-icon class="ma-0 mr-3" color="white" size="small">mdi-movie-play-outline</v-icon>
+               </template>
+            </v-list-item>
+
+            <v-list-item title="Добавить" :to="{name: 'createSlider'}">
+               <template v-slot:prepend>
+                  <v-icon class="ma-0 mr-3" color="white" size="small">mdi-plus-thick</v-icon>
+               </template>
+            </v-list-item>
          </v-list-group>
       </v-list>
       <!-- Кнопка выход -->
