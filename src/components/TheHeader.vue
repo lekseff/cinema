@@ -97,11 +97,11 @@ export default {
             icon: 'mdi-list-box-outline',
             title: 'Расписание'
          },
-         {
-            routeName: 'today',
-            icon: 'mdi-movie-open-outline',
-            title: 'Сегодня в кино',
-         },
+         // {
+         //    routeName: 'today',
+         //    icon: 'mdi-movie-open-outline',
+         //    title: 'Сегодня в кино',
+         // },
          {
             routeName: 'contacts',
             icon: 'mdi-contacts',
