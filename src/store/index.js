@@ -11,6 +11,7 @@ import {countries} from '@/store/countries'  // Список стран для �
 import {genres} from '@/store/genres'  // Список жанров для фильма
 import {ageCategories} from '@/store/ageCategories' // Возрастные категории для фильмов
 import {orders} from '@/store/orders' // Оформление заказа
+import {slider} from '@/store/slider' // Слайдер
 
 
 export default createStore({
@@ -27,10 +28,11 @@ export default createStore({
       axios.get(`${url}/api/cinema`)
         .then((response) => {
           console.log('movie response', response.data)
-          const {movies, dates, sessions} = response.data
+          const {movies, dates, sessions, slider} = response.data
           dispatch('setDates', dates) // Даты выбора фильмов
           dispatch('setMovies', movies) // Фильмы у которых есть активные сеансы (это не все фильмы с сервера)
           dispatch('setSessions', sessions) // Сеансы
+          dispatch('setSlides', slider) // Слайдер
           dispatch('clearLoading')
         })
         .catch(error => {
@@ -47,6 +49,7 @@ export default createStore({
     modals,
     genres,
     orders,
+    slider,
     sessions,
     snackbar,
     countries,

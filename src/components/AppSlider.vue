@@ -6,13 +6,10 @@
        :show-arrows="isShowArrows"
        class="rounded-lg"
    >
-      <v-carousel-item
-          v-for="(slide, i) in slides"
-          :key="i"
-      >
-         <router-link :to="{name: 'ShowMovie', params: {id: slide.movieId}}">
+      <v-carousel-item v-for="slide in slides" :key="slide.id">
+         <router-link :to="{name: 'ShowMovie', params: {id: slide.movie}}">
             <v-img
-                :src="slide.src"
+                :src="slide.photo"
                 aspect-ratio="2.17"
                 cover
             >
@@ -24,37 +21,15 @@
 
 <script>
 export default {
-   name: "AppSlider",
-   data: () => ({
-      slides: [
-         {
-            id: 1,
-            movieId: 1,
-            src: 'img/slider/divergent.jpg'
-         },
-         {
-            id: 2,
-            movieId: 2,
-            src: 'img/slider/inception.jpg'
-         },
-         {
-            id: 3,
-            movieId: 3,
-            src: 'img/slider/tour.jpg'
-         },
-         {
-            id: 4,
-            movieId: 4,
-            src: 'img/slider/joker.jpg'
-         },
-         {
-            id: 5,
-            movieId: 5,
-            src: 'img/slider/ring.jpg'
-         }
-      ]
-   }),
+   name: 'AppSlider',
+   props: {
+      slides: Array
+   },
    computed: {
+      /**
+       * Скрытие стрелок управления
+       * @returns {boolean|string}
+       */
       isShowArrows() {
          return this.$vuetify.display.smAndDown ? false : 'hover'
       }

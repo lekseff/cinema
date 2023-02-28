@@ -349,7 +349,7 @@ export default {
 /* Занятое место */
 .place-occupied {
    background-color: #FF7043 !important; /* deep-orange-lighten-1 */
-   transform: scale(0.5) !important;
+   transform: scale(0.7) !important;
 }
 
 /* Не доступное место */

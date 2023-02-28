@@ -2,7 +2,7 @@
    <v-container class="ma-0 pa-0" fluid>
       <v-container>
          <!-- Слайдер -->
-         <AppSlider/>
+         <AppSlider v-if="slider.length" :slides="slider"/>
          <!-- Панель выбора сеанса -->
          <AppSession/>
          <!-- Карточки фильмов -->
@@ -55,7 +55,8 @@ export default {
       ...mapGetters({
          selectedDate: 'getSelectedDate',
          getMovieById: 'getMovieById',
-         filtered: 'getSessionsWithDate'
+         filtered: 'getSessionsWithDate',
+         slider: 'getSlides'
       }),
       /**
        * Получает сеансы на определнную даты и группирует по фильмам

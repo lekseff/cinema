@@ -1,7 +1,7 @@
 <template>
    <!-- Loader -->
    <v-container v-if="loading" class="fill-height">
-      <AppLoader />
+      <AppLoader/>
    </v-container>
    <!-- Content -->
    <v-container v-else>
@@ -24,7 +24,7 @@
                       :rules="[rules.required]"
                   >
                      <template v-slot:selection="{ item }">
-                           {{ item.title }}
+                        {{ item.title }}
                      </template>
                   </v-select>
                </v-col>
@@ -74,9 +74,10 @@ export default {
       }
    }),
    mounted() {
+      // Получаем фильмы для выпадающего списка
       this.loadAllMovies()
           .then(response => {
-             if(response && response.status === 200) {
+             if (response && response.status === 200) {
                 // Формируем список фильмов
                 this.movies = response.data.data.map(m => {
                    return {
@@ -91,12 +92,31 @@ export default {
           })
    },
    methods: {
-      ...mapActions(['loadAllMovies']),
+      ...mapActions(['loadAllMovies', 'createSlider']),
+      /**
+       * Проверяет валидацию и подготоавливает данные для отправки
+       * @returns {Promise<void>}
+       */
       async onSubmitForm() {
          const {valid} = await this.$refs.createSliderForm.validate()
          if (!valid) return
-
-         console.log(this.slide)
+         const data = {
+            ...this.slide,
+            photo: this.slide.photo[0]
+         }
+         this.sendData(data)
+      },
+      /**
+       * Отправляет данные на сервер
+       * @param data
+       */
+      sendData(data) {
+         this.createSlider(data)
+             .then(response => {
+                if (response && response.status === 200) {
+                   this.$refs.createSliderForm.reset()   // Очищаем форму
+                }
+             })
       }
    }
 
