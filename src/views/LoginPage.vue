@@ -10,7 +10,7 @@
          </v-card-title>
          <v-divider></v-divider>
          <v-form
-             ref="form"
+             ref="loginForm"
              class="d-flex flex-column px-5 py-4"
          >
             <v-text-field
@@ -51,16 +51,18 @@ import {rules} from '@/../constants'
 export default {
    name: "AppLogin",
    data: () => ({
+
       email: '',
       password: '',
       rules: rules
    }),
    methods: {
       async validate() {
-         const {valid} = await this.$refs.form.validate()
+         const {valid} = await this.$refs.loginForm.validate()
          if (!valid) return
          console.log('Форма валидна, отправляем')
-         this.$router.push({name: 'dashboard'})
+         console.log()
+         // this.$router.push({name: 'dashboard'})
       },
    }
 }
