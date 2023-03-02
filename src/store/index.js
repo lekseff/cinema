@@ -12,6 +12,7 @@ import {genres} from '@/store/genres'  // Список жанров для фи�
 import {ageCategories} from '@/store/ageCategories' // Возрастные категории для фильмов
 import {orders} from '@/store/orders' // Оформление заказа
 import {slider} from '@/store/slider' // Слайдер
+import {auth} from '@/store/auth' // Авторизация
 
 
 export default createStore({
@@ -42,6 +43,7 @@ export default createStore({
     }
   },
   modules: {
+    auth,
     halls,
     dates,
     movies,

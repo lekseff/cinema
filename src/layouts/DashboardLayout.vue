@@ -107,7 +107,10 @@
       <!-- Кнопка выход -->
       <template v-slot:append>
          <div class="pa-2">
-            <v-btn block>
+            <v-btn
+                block
+                @click.prevent="onLogout"
+            >
                Выход
             </v-btn>
          </div>
@@ -121,11 +124,20 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import SnackBar from "@/components/SnackBar";
 
 export default {
    name: "DashboardLayout",
-   components: {SnackBar}
+   components: {SnackBar},
+   methods: {
+      ...mapActions(['logout']),
+      async onLogout() {
+         const response = await this.logout()
+         this.$router.push({name: 'login'})
+         console.log('logout', response)
+      }
+   }
 }
 </script>
 

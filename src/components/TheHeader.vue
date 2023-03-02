@@ -103,6 +103,11 @@ export default {
          //    title: 'Сегодня в кино',
          // },
          {
+            routeName: 'login',
+            icon: 'mdi-movie-open-outline',
+            title: 'Вход',
+         },
+         {
             routeName: 'contacts',
             icon: 'mdi-contacts',
             title: 'Контакты'

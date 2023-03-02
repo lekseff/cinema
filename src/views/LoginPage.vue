@@ -14,7 +14,7 @@
              class="d-flex flex-column px-5 py-4"
          >
             <v-text-field
-                v-model="formData.email"
+                v-model="email"
                 clearable
                 type="email"
                 label="Email"
@@ -27,7 +27,7 @@
             >
             </v-text-field>
             <v-text-field
-                v-model="formData.password"
+                v-model="password"
                 clearable
                 class="mt-3"
                 maxlength="50"
@@ -43,28 +43,32 @@
          </v-form>
       </v-card>
 
-<!--      <v-btn-->
-<!--         @click="onTest"-->
-<!--      >-->
-<!--         Test-->
-<!--      </v-btn>-->
+      <!--      <v-btn-->
+      <!--         @click="onTest"-->
+      <!--      >-->
+      <!--         Test-->
+      <!--      </v-btn>-->
    </div>
+   <!-- Сообщение об ошибке -->
+   <SnackBar/>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+import SnackBar from '@/components/SnackBar'
 import {rules} from '@/../constants'
-import axios from 'axios'
+
 
 export default {
    name: "AppLogin",
+   components: {SnackBar},
    data: () => ({
       rules: rules,
-      formData: {
-         email: '',
-         password: ''
-      }
+      email: '',
+      password: ''
    }),
    methods: {
+      ...mapActions(['login']),
       // async onTest() {
       //    const url = process.env.VUE_APP_API_URL
       //    try {
@@ -83,29 +87,50 @@ export default {
       async validate() {
          const {valid} = await this.$refs.loginForm.validate()
          if (!valid) return
-         const url = process.env.VUE_APP_API_URL
-         axios.defaults.withCredentials = true
-         try {
-            //   Запрос на получение cookie и токена
-            await axios(`${url}/sanctum/csrf-cookie`, {
-               headers: {
-                  'Accept': 'application/json',
-               },
-            })
-            await axios.post(`${url}/login`, this.formData, {
-               headers: {
-                  'Accept': 'application/json',
-                  'X-Requested-With': 'XMLHttpRequest',
-                  'Access-Control-Allow-Origin': '*',
-               },
-            })
-                .then(res => {
-                   console.log(res.config.headers['X-XSRF-TOKEN'])
+
+         this.login({
+            email: this.email,
+            password: this.password
+         })
+             .then(response => {
+                if (response && (response.status >= 200 && response.status < 300)) {
                    this.$router.push({name: 'dashboard'})
-                })
-         } catch (e) {
-            console.log(e)
-         }
+                }
+             })
+
+
+         //-------
+         // const url = process.env.VUE_APP_API_URL
+         // axios.defaults.withCredentials = true
+         // try {
+         //    //   Запрос на получение cookie и токена
+         //    await axios(`${url}/sanctum/csrf-cookie`, {
+         //       headers: {
+         //          'Accept': 'application/json',
+         //       },
+         //    })
+         //    await axios.post(`${url}/login`, this.formData, {
+         //       headers: {
+         //          'Accept': 'application/json',
+         //          'X-Requested-With': 'XMLHttpRequest',
+         //          'Access-Control-Allow-Origin': '*',
+         //       },
+         //    })
+         //        .then(res => {
+         //           // console.log(res.config.headers['X-XSRF-TOKEN'])
+         //           const token = res.config.headers['X-XSRF-TOKEN']
+         //           localStorage.setItem('x_xsrf_token', token)
+         //           this.$router.push({name: 'dashboard'})
+         //        })
+         // } catch (error) {
+         //    console.log(error)
+         //    this.openSnackbar({
+         //       message: error.response.data.message || 'Ошибка авторизации',
+         //       color: 'error'
+         //    })
+         //
+         // }
+         // ---------------
          // axios.get(`${url}/sanctum/csrf-cookie`,
          //     // {
          //     //    withCredentials: true,
