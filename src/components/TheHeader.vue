@@ -18,6 +18,15 @@
                            {{ item.title }}
                         </router-link>
                      </li>
+                     <!-- Вход в админку -->
+                     <li class="font-weight-medium ">
+                        <router-link
+                            :to="{ name: loginButton.link}"
+                            class="text-decoration-none text-white app-link-hover"
+                        >
+                           {{ loginButton.name }}
+                        </router-link>
+                     </li>
                   </ul>
                </nav>
                <!-- Телефон -->
@@ -66,7 +75,6 @@
                       v-for="item in menuItems"
                       :key="item.name"
                       :to="{name: item.routeName}"
-                      value="12"
                       class="text-decoration-none text-grey-darken-3"
                   >
                      <v-list-item class="py-5">
@@ -74,6 +82,20 @@
                            <v-icon :icon="item.icon" class="mr-4"></v-icon>
                         </template>
                         <v-list-item-title class="text-h5"> {{ item.title }}</v-list-item-title>
+                     </v-list-item>
+                  </router-link>
+                  <!-- Вход в админку -->
+                  <router-link
+                      :to="{name: loginButton.link}"
+                      class="text-decoration-none text-grey-darken-3"
+                  >
+                     <v-list-item class="py-5">
+                        <template v-slot:prepend>
+                           <v-icon :icon="loginButton.icon" class="mr-4"></v-icon>
+                        </template>
+                        <v-list-item-title class="text-h5">
+                           {{ loginButton.name }}
+                        </v-list-item-title>
                      </v-list-item>
                   </router-link>
                </v-list>
@@ -84,6 +106,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import AppLogo from '@/components/AppLogo'
 
 export default {
@@ -103,15 +126,15 @@ export default {
          //    title: 'Сегодня в кино',
          // },
          {
-            routeName: 'login',
-            icon: 'mdi-movie-open-outline',
-            title: 'Вход',
-         },
-         {
             routeName: 'contacts',
             icon: 'mdi-contacts',
             title: 'Контакты'
-         }
+         },
+         // {
+         //    routeName: 'login',
+         //    icon: 'mdi-movie-open-outline',
+         //    title: 'Вход',
+         // },
       ]
    }),
    methods: {
@@ -129,6 +152,24 @@ export default {
       }
    },
    computed: {
+      ...mapGetters({
+         isAuth: 'getAuthStatus'
+      }),
+      loginButton() {
+         if (this.isAuth) {
+            return {
+               link: 'dashboard',
+               name: 'Админка',
+               icon: 'mdi-view-dashboard'
+            }
+         } else {
+            return {
+               link: 'login',
+               name: 'Вход',
+               icon: 'mdi-login-variant'
+            }
+         }
+      },
       /**
        * Проверка на домашнюю страницу
        * @returns {boolean}

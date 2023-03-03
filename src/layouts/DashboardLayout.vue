@@ -8,7 +8,7 @@
       <v-list>
          <v-list-item
              title="Админка"
-             prepend-icon="mdi-account-circle"
+             prepend-icon="mdi-view-dashboard"
          ></v-list-item>
          <v-divider></v-divider>
 
@@ -109,7 +109,19 @@
          <div class="pa-2">
             <v-btn
                 block
+                :to="{name: 'home'}"
+                prepend-icon="mdi-home-account"
+                size="large"
+            >
+               На главную
+            </v-btn>
+         </div>
+         <div class="pa-2">
+            <v-btn
+                block
                 @click.prevent="onLogout"
+                prepend-icon="mdi-logout-variant"
+                size="large"
             >
                Выход
             </v-btn>
@@ -133,9 +145,8 @@ export default {
    methods: {
       ...mapActions(['logout']),
       async onLogout() {
-         const response = await this.logout()
-         this.$router.push({name: 'login'})
-         console.log('logout', response)
+         await this.logout()
+         this.$router.push({name: 'home'})
       }
    }
 }

@@ -36,18 +36,11 @@
                 variant="outlined"
                 :rules="[rules.required, rules.maxLength50]"
                 color="blue-grey-darken-3"
-                placeholder="Enter your password"
             >
             </v-text-field>
             <v-btn class="align-self-center" color="deep-orange-lighten-1" @click="validate">ВОЙТИ</v-btn>
          </v-form>
       </v-card>
-
-      <!--      <v-btn-->
-      <!--         @click="onTest"-->
-      <!--      >-->
-      <!--         Test-->
-      <!--      </v-btn>-->
    </div>
    <!-- Сообщение об ошибке -->
    <SnackBar/>
@@ -69,21 +62,6 @@ export default {
    }),
    methods: {
       ...mapActions(['login']),
-      // async onTest() {
-      //    const url = process.env.VUE_APP_API_URL
-      //    try {
-      //       axios.defaults.withCredentials = true
-      //       const response = await axios.get(`${url}/api/test`, {
-      //          headers: {
-      //             'Accept': 'application/json'
-      //          }
-      //       })
-      //       console.log('get', response)
-      //    } catch (e) {
-      //       console.log('get', e)
-      //    }
-      // },
-
       async validate() {
          const {valid} = await this.$refs.loginForm.validate()
          if (!valid) return
@@ -97,63 +75,6 @@ export default {
                    this.$router.push({name: 'dashboard'})
                 }
              })
-
-
-         //-------
-         // const url = process.env.VUE_APP_API_URL
-         // axios.defaults.withCredentials = true
-         // try {
-         //    //   Запрос на получение cookie и токена
-         //    await axios(`${url}/sanctum/csrf-cookie`, {
-         //       headers: {
-         //          'Accept': 'application/json',
-         //       },
-         //    })
-         //    await axios.post(`${url}/login`, this.formData, {
-         //       headers: {
-         //          'Accept': 'application/json',
-         //          'X-Requested-With': 'XMLHttpRequest',
-         //          'Access-Control-Allow-Origin': '*',
-         //       },
-         //    })
-         //        .then(res => {
-         //           // console.log(res.config.headers['X-XSRF-TOKEN'])
-         //           const token = res.config.headers['X-XSRF-TOKEN']
-         //           localStorage.setItem('x_xsrf_token', token)
-         //           this.$router.push({name: 'dashboard'})
-         //        })
-         // } catch (error) {
-         //    console.log(error)
-         //    this.openSnackbar({
-         //       message: error.response.data.message || 'Ошибка авторизации',
-         //       color: 'error'
-         //    })
-         //
-         // }
-         // ---------------
-         // axios.get(`${url}/sanctum/csrf-cookie`,
-         //     // {
-         //     //    withCredentials: true,
-         //     //    headers: {
-         //     //       'Accept': 'Application/json',
-         //     //       'X-Requested-With': 'XMLHttpRequest',
-         //     //       'Access-Control-Allow-Origin': '*',
-         //     //    },
-         //     // }
-         // )
-         //     .then((res) => {
-         //        console.log('res csrf', res)
-         //
-         //        // axios.post(`${url}/login`, this.formData, {
-         //        //    withCredentials: true,
-         //        //    headers: {
-         //        //       'Accept': 'Application/json'
-         //        //    },
-         //        // }).then(response => {
-         //        //    console.log(response)
-         //        // })
-         //     })
-         // this.$router.push({name: 'dashboard'})
       },
    }
 }

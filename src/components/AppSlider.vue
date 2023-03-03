@@ -7,7 +7,7 @@
        class="rounded-lg"
    >
       <v-carousel-item v-for="slide in slides" :key="slide.id">
-         <router-link :to="{name: 'ShowMovie', params: {id: slide.movie}}">
+         <router-link :to="{name: 'showMovie', params: {id: slide.movie}}">
             <v-img
                 :src="slide.photo"
                 aspect-ratio="2.17"

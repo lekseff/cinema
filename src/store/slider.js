@@ -1,4 +1,5 @@
 import axios from "axios";
+axios.defaults.withCredentials = true
 
 export const slider = {
   state: () => ({
@@ -22,7 +23,7 @@ export const slider = {
       const url = process.env.VUE_APP_API_URL
       try {
         const response = await axios.get(`${url}/api/slider`)
-        dispatch('setSlides', response.data)
+        dispatch('setSlides', response.data.data)
         return response
       } catch (error) {
         console.log(error)

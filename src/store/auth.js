@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const auth = {
   state: () => ({
-    auth: false,
+    auth: !!localStorage.getItem('x-xsrf-token'),
     token: localStorage.getItem('x-xsrf-token') || '',
     user: {}
   }),
@@ -44,9 +44,9 @@ export const auth = {
           })
           .then(response => {
             const token = response.config.headers['X-XSRF-TOKEN']
-            console.log(token)
             localStorage.setItem('x-xsrf-token', token) // Сохраняем токен в localstorage
             dispatch('setAuth', true) // Статус авторизации в store
+            console.log('login response', response)
             return response
           })
       } catch (error) {

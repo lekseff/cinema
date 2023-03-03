@@ -3,7 +3,7 @@
        flat
        class="d-flex flex-column flex-sm-row bg-transparent mb-4 mb-lg-0">
       <div>
-         <router-link :to="{name: 'ShowMovie', params: {id: movie.id}}">
+         <router-link :to="{name: 'showMovie', params: {id: movie.id}}">
             <v-img
                 cover
                 :width="isMobile ? '100%' : '250'"
