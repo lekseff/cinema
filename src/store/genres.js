@@ -1,4 +1,5 @@
-import axios from "axios";
+// import axios from "axios";
+import * as genre from '../services/api/genre'
 
 export const genres = {
   state: () => ({
@@ -19,21 +20,30 @@ export const genres = {
      * @returns {Promise<void>}
      */
     async loadAllGenres({dispatch}) {
-      const url = process.env.VUE_APP_API_URL
       try {
-        const response = await axios.get(`${url}/api/genres`, {
-          headers: {
-            'Accept': 'application/json',
-          }
-        })
-        dispatch('setGenres', response.data.data)
+        const response = await genre.getGenres()
+        dispatch('setGenres', response.data)
       } catch (error) {
-        console.log(error)
         dispatch('openSnackbar', {
-          message: 'Ошибка загрузки жанров',
+          message: error.response.message || 'Ошибка загрузки жанров',
           color: 'error'
         })
       }
+      // const url = process.env.VUE_APP_API_URL
+      // try {
+      //   const response = await axios.get(`${url}/api/genres`, {
+      //     headers: {
+      //       'Accept': 'application/json',
+      //     }
+      //   })
+      //
+      // } catch (error) {
+      //   console.log(error)
+      //   dispatch('openSnackbar', {
+      //     message: 'Ошибка загрузки жанров',
+      //     color: 'error'
+      //   })
+      // }
     }
   },
   getters: {

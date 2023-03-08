@@ -86,7 +86,7 @@
                       variant="outlined"
                       label="Жанр (Жанры)"
                       density="comfortable"
-                      :items="genresList"
+                      :items="getGenres"
                       v-model="movie.genres"
                       color="deep-orange-lighten-1"
                       :rules="[rules.requiredSelect]"
@@ -192,7 +192,7 @@ export default {
    name: 'MovieCreatePage',
    data: () => ({
       countriesList: [],
-      genresList: [],
+      // genresList: [],
       ageCategoriesList: [],
       movie: {
          name: '',
@@ -213,9 +213,9 @@ export default {
              this.countriesList = this.getCountries
           })
       this.loadAllGenres()
-          .then(() => {
-             this.genresList = this.getGenres
-          })
+          // .then(() => {
+          //    this.genresList = this.getGenres
+          // })
       this.loadAllAgeCategories()
           .then(() => {
              this.ageCategoriesList = this.getAgeCategories

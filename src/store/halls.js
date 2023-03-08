@@ -1,4 +1,5 @@
-import axios from "axios";
+// import axios from "axios";
+import * as hall from '@/services/api/hall'
 
 export const halls = {
   state: () => ({
@@ -26,12 +27,11 @@ export const halls = {
      * @returns {Promise<void>}
      */
     async getHalls({commit}) {
-      const url = process.env.VUE_APP_API_URL
       try {
-        const response = await axios.get(`${url}/api/halls`)
-        commit('setHalls', response.data.data)
-      } catch (e) {
-        console.log('ошибка загрузка залов', e)
+        const response = await hall.getHalls()
+        commit('setHalls', response.data)
+      } catch (error) {
+        console.log(error)
       }
     },
     /**
@@ -41,11 +41,10 @@ export const halls = {
      * @returns {Promise<void>}
      */
     async loadHallById({commit}, payload) {
-      const url = process.env.VUE_APP_API_URL
       try {
-        const response = await axios.get(`${url}/api/halls/${payload}`)
-        commit('setHall', response.data.data)
-        return response.data.data
+        const response = await hall.getHallsById(payload)
+        commit('setHall', response.data)
+        return response.data
       } catch (error) {
         console.log(error)
       }
@@ -57,13 +56,11 @@ export const halls = {
      * @returns {Promise<void>}
      */
     async createHall(_, payload) {
-      const url = process.env.VUE_APP_API_URL
-      await axios.post(`${url}/api/halls`, payload, {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'multipart/form-data',
-        }
-      })
+      try {
+        return hall.createHall(payload)
+      } catch (error) {
+        console.log(error)
+      }
     },
     /**
      * Удаление зала
@@ -72,22 +69,18 @@ export const halls = {
      * @param id
      */
     removeHall({dispatch, getters}, id) {
-      const url = process.env.VUE_APP_API_URL
-      axios.delete(`${url}/api/halls/${id}`, {
-        headers: {
-          'Accept': 'application/json',
-        }
-      }).then(() => {
-        const halls = getters.getAllHalls
-        dispatch('setHalls', halls.filter(h => h.id !== id))
-        dispatch('openSnackbar', {
-          message: 'Зал успешно удален',
-          color: 'success'
-        })
-      })
-        .catch(err => {
+      hall.removeHall(id)
+        .then(() => {
+          const halls = getters.getAllHalls
+          dispatch('setHalls', halls.filter(h => h.id !== id))
           dispatch('openSnackbar', {
-            message: `Ошибка удаления. [${err.response.statusText}]`,
+            message: 'Зал успешно удален',
+            color: 'success'
+          })
+        })
+        .catch(error => {
+          dispatch('openSnackbar', {
+            message: `Ошибка удаления. [${error.response.statusText}]`,
             color: 'error'
           })
         })
@@ -99,24 +92,21 @@ export const halls = {
      * @param payload - {id: id, data: {}}
      */
     updateHall({dispatch}, payload) {
-      const url = process.env.VUE_APP_API_URL
       const {id, data} = payload
-      axios.put(`${url}/api/halls/${id}`, data, {
-        headers: {
-          'Accept': 'application/json',
-        }
-      }).then(() => {
-        dispatch('getHalls')
-        dispatch('openSnackbar', {
-          message: 'Изменения сохранены',
-          color: 'success'
+      hall.updateHall(id, data)
+        .then(() => {
+          dispatch('getHalls')
+          dispatch('openSnackbar', {
+            message: 'Изменения сохранены',
+            color: 'success'
+          })
         })
-      }).catch(err => {
-        dispatch('openSnackbar', {
-          message: err.response.data.message || 'Ошибка обновления элемента',
-          color: 'error'
+        .catch(error => {
+          dispatch('openSnackbar', {
+            message: error.response.data.message || 'Ошибка обновления элемента',
+            color: 'error'
+          })
         })
-      })
     }
   },
   getters: {
