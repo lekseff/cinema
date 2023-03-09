@@ -1,4 +1,4 @@
-import axios from "axios";
+import * as ageCategory from '@/services/api/ageCategory'
 
 export const ageCategories = {
   state: () => ({
@@ -19,20 +19,14 @@ export const ageCategories = {
      * @returns {Promise<void>}
      */
     async loadAllAgeCategories({dispatch}) {
-      const url = process.env.VUE_APP_API_URL
       try {
-        const response = await axios.get(`${url}/api/age-category`, {
-          headers: {
-            'Accept': 'application/json',
-          }
-        })
-        dispatch('setAgeCategories', response.data.data)
+        const response = await ageCategory.getAgeCategories()
+        dispatch('setAgeCategories', response.data)
       } catch (error) {
-        console.log(error)
-        dispatch('openSnackbar', {
-          message: 'Ошибка загрузки возрастных категорий',
-          color: 'error'
-        })
+          dispatch('openSnackbar', {
+            message: error.response.data.message || 'Ошибка загрузки возрастных категорий',
+            color: 'error'
+          })
       }
     }
   },

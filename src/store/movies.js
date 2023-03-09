@@ -1,4 +1,5 @@
-import axios from "axios";
+// import axios from "axios";
+import * as movie from '@/services/api/movie'
 
 export const movies = {
   state: () => ({
@@ -26,11 +27,9 @@ export const movies = {
      * @returns {Promise<void>}
      */
     async loadAllMovies({dispatch}) {
-      const url = process.env.VUE_APP_API_URL
       try {
-        const response = await axios.get(`${url}/api/movies`)
-        dispatch('setAllMovies', response.data.data)
-        return response
+        const response = await movie.getMovies()
+        dispatch('setAllMovies', response.data)
       } catch (error) {
         console.log(error)
       }
@@ -40,14 +39,8 @@ export const movies = {
      * @returns {Promise<void>}
      */
     async createMovie({dispatch}, payload) {
-      const url = process.env.VUE_APP_API_URL
       try {
-        const response = await axios.post(`${url}/api/movies`, payload, {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'multipart/form-data',
-          }
-        })
+        const response = await movie.createMovie(payload)
         dispatch('openSnackbar', {
           message: 'Фильм успешно создан',
           color: 'success'
@@ -66,18 +59,13 @@ export const movies = {
      * @param getters
      * @param id
      */
-    async removeMovie({dispatch, getters}, id) {
-      const url = process.env.VUE_APP_API_URL
-      await axios.delete(`${url}/api/movies/${id}`, {
-        headers: {
-          'Accept': 'application/json',
-        }
-      })
+    removeMovie({dispatch, getters}, id) {
+      movie.removeMovie(id)
         .then(() => {
           // Изменяем store
           const movies = getters.getAllMovies.filter(m => m.id !== id)
           dispatch('setAllMovies', movies)
-          // Сообщение удалении
+          // Сообщение о удалении
           dispatch('openSnackbar', {
             message: 'Фильм успешно удален',
             color: 'success'

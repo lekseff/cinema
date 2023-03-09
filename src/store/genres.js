@@ -29,21 +29,6 @@ export const genres = {
           color: 'error'
         })
       }
-      // const url = process.env.VUE_APP_API_URL
-      // try {
-      //   const response = await axios.get(`${url}/api/genres`, {
-      //     headers: {
-      //       'Accept': 'application/json',
-      //     }
-      //   })
-      //
-      // } catch (error) {
-      //   console.log(error)
-      //   dispatch('openSnackbar', {
-      //     message: 'Ошибка загрузки жанров',
-      //     color: 'error'
-      //   })
-      // }
     }
   },
   getters: {

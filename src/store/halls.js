@@ -68,7 +68,7 @@ export const halls = {
      * @param getters
      * @param id
      */
-    removeHall({dispatch, getters}, id) {
+    async removeHall({dispatch, getters}, id) {
       hall.removeHall(id)
         .then(() => {
           const halls = getters.getAllHalls

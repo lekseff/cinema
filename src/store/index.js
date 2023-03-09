@@ -11,7 +11,7 @@ import {countries} from '@/store/countries'  // Список стран для �
 import {genres} from '@/store/genres'  // Список жанров для фильма
 import {ageCategories} from '@/store/ageCategories' // Возрастные категории для фильмов
 import {orders} from '@/store/orders' // Оформление заказа
-import {slider} from '@/store/slider' // Слайдер
+import {sliders} from '@/store/sliders' // Слайдер
 import {auth} from '@/store/auth' // Авторизация
 
 
@@ -51,7 +51,7 @@ export default createStore({
     modals,
     genres,
     orders,
-    slider,
+    sliders,
     sessions,
     snackbar,
     countries,

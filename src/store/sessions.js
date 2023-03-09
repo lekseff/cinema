@@ -1,4 +1,5 @@
 import axios from "axios";
+import * as session from '@/services/api/session'
 
 export const sessions = {
   state: () => ({
@@ -27,13 +28,8 @@ export const sessions = {
      * @returns {Promise<axios.AxiosResponse<any>>}
      */
     async createSession({dispatch}, payload) {
-      const url = process.env.VUE_APP_API_URL
       try {
-        const response = await axios.post(`${url}/api/sessions`, payload, {
-          headers: {
-            'Accept': 'application/json',
-          }
-        })
+        const response = await session.createSession(payload)
         dispatch('openSnackbar', {
           message: 'Сеанс успешно добавлен',
           color: 'success'
@@ -47,10 +43,8 @@ export const sessions = {
       }
     },
     async loadSessionById(_, id) {
-      const url = process.env.VUE_APP_API_URL
       try {
-        const response = await axios.get(`${url}/api/sessions/${id}`)
-        return response.data
+        return await session.getSessionById(id)
       } catch (error) {
         console.log(error)
       }
@@ -75,19 +69,17 @@ export const sessions = {
      * Удаление сеанса
      * @param dispatch
      * @param id
-     * @returns {Promise<void>}
+     // * @returns {Promise<void>}
      */
     async removeSession({dispatch}, id) {
       try {
-        const url = process.env.VUE_APP_API_URL
-        const response = await axios.delete(`${url}/api/sessions/${id}`)
+        const response = await session.removeSession(id)
         dispatch('openSnackbar', {
           message: 'Сеанс успешно удален',
           color: 'success'
         })
         return response
       } catch (error) {
-        console.log(error)
         dispatch('openSnackbar', {
           message: error.response.data.message || 'Ошибка удаления сеанса',
           color: 'error'

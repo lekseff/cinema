@@ -1,4 +1,5 @@
-import axios from "axios";
+// import axios from "axios";
+import * as order from '@/services/api/order'
 
 export const orders = {
   actions: {
@@ -8,14 +9,9 @@ export const orders = {
      * @param payload
      * @returns {Promise<axios.AxiosResponse<any>>}
      */
-    async confirmOrder(_, payload) {
+    createOrder(_, payload) {
       try {
-        const url = process.env.VUE_APP_API_URL
-        return await axios.post(`${url}/api/orders/confirm`, payload, {
-          headers: {
-            'Accept': 'application/json',
-          }
-        })
+        return order.createOrder(payload)
       } catch (error) {
         console.log('Ошибка выполнения запроса', error)
       }

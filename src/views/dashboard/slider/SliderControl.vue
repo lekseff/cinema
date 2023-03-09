@@ -40,9 +40,7 @@ export default {
        */
       this.loadSlider()
           .then(response => {
-             if (response && response.status === 200) {
-                this.slides = response.data.data
-             }
+             this.slides = response
           })
           .finally(() => {
              this.loading = false

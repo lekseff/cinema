@@ -122,7 +122,6 @@ export default {
       async onCreateSession() {
          const {valid} = await this.$refs.sessionCreate.validate()
          if (!valid) return
-         console.log({...this.session})
          await this.createSession({...this.session})
       }
    }

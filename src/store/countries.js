@@ -1,4 +1,4 @@
-import axios from "axios";
+import * as country from '@/services/api/country'
 
 export const countries = {
   state: () => ({
@@ -19,18 +19,12 @@ export const countries = {
      * @returns {Promise<void>}
      */
     async loadAllCountries({dispatch}) {
-      const url = process.env.VUE_APP_API_URL
       try {
-        const response = await axios.get(`${url}/api/countries`, {
-          headers: {
-            'Accept': 'application/json',
-          }
-        })
-        dispatch('setCountries', response.data.data)
+        const response = await country.getCounties()
+        dispatch('setCountries', response.data)
       } catch (error) {
-        console.log(error)
         dispatch('openSnackbar', {
-          message: 'Ошибка загрузки стран',
+          message: error.response.data.message || 'Ошибка загрузки стран',
           color: 'error'
         })
       }

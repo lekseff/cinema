@@ -65,7 +65,7 @@ export default {
       /**
        * Отправка данных и получение qr кода
        */
-      this.confirmOrder(this.order)
+      this.createOrder(this.order)
           .then((response) => {
              if (response.data) {
                 this.qrCode = response.data
@@ -95,7 +95,7 @@ export default {
       }
    },
    methods: {
-      ...mapActions(['confirmOrder']),
+      ...mapActions(['createOrder']),
       onCloseModal() {
          this.$emit('close-modal')
       }

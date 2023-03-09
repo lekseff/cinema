@@ -18,7 +18,7 @@
                       variant="outlined"
                       density="comfortable"
                       label="Фильм"
-                      :items="movies"
+                      :items="moviesList"
                       v-model="slide.movie"
                       color="deep-orange-lighten-1"
                       :rules="[rules.required]"
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import AppLoader from '@/components/AppLoader'
 import {rules} from '../../../../constants'
 
@@ -67,7 +67,7 @@ export default {
    data: () => ({
       loading: true,
       rules: rules,
-      movies: null,
+      moviesList: null,
       slide: {
          movie: null,
          photo: null
@@ -76,20 +76,23 @@ export default {
    mounted() {
       // Получаем фильмы для выпадающего списка
       this.loadAllMovies()
-          .then(response => {
-             if (response && response.status === 200) {
-                // Формируем список фильмов
-                this.movies = response.data.data.map(m => {
-                   return {
-                      id: m.id,
-                      name: m.name
-                   }
-                })
-             }
+          .then(() => {
+             // Формируем список фильмов
+             this.moviesList = this.movies.map(m => {
+                return {
+                   id: m.id,
+                   name: m.name
+                }
+             })
           })
           .finally(() => {
              this.loading = false
           })
+   },
+   computed: {
+      ...mapGetters({
+         movies: 'getAllMovies'
+      })
    },
    methods: {
       ...mapActions(['loadAllMovies', 'createSlider']),

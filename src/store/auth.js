@@ -1,4 +1,7 @@
-import axios from 'axios'
+// import axios from 'axios'
+import {setCsrfCookie} from '@/services/api/auth/csrfCookie'
+import {login} from '@/services/api/auth/login'
+import {logout} from '@/services/api/auth/logout'
 
 export const auth = {
   state: () => ({
@@ -22,33 +25,13 @@ export const auth = {
      * @returns {Promise<void>}
      */
     async login({dispatch}, payload) {
-      const url = process.env.VUE_APP_API_URL
-      axios.defaults.withCredentials = true
       try {
-        //   Запрос на получение cookie и токена
-        await axios(`${url}/sanctum/csrf-cookie`,
-          {
-            headers: {
-              'Accept': 'application/json',
-            },
-          })
-        // Логин
-        return await axios.post(`${url}/login`,
-          payload,
-          {
-            headers: {
-              'Accept': 'application/json',
-              'X-Requested-With': 'XMLHttpRequest',
-              'Access-Control-Allow-Origin': '*',
-            },
-          })
-          .then(response => {
-            const token = response.config.headers['X-XSRF-TOKEN']
-            localStorage.setItem('x-xsrf-token', token) // Сохраняем токен в localstorage
-            dispatch('setAuth', true) // Статус авторизации в store
-            console.log('login response', response)
-            return response
-          })
+        await setCsrfCookie()
+        const response = await login(payload)
+        const token = response.config.headers['X-XSRF-TOKEN'] // Получаем токен из запроса
+        localStorage.setItem('x-xsrf-token', token) // Сохраняем токен в localstorage
+        dispatch('setAuth', true) // Статус авторизации в store
+        return response
       } catch (error) {
         console.log('login error', error)
         dispatch('openSnackbar', {
@@ -62,17 +45,15 @@ export const auth = {
      * @returns {Promise<axios.AxiosResponse<any>>}
      */
     async logout({dispatch}) {
-      const url = process.env.VUE_APP_API_URL
-      axios.defaults.withCredentials = true
       try {
-        const response = await axios.post(`${url}/logout`)
+        const response = await logout()
         if (response && (response.status >= 200 && response.status < 300)) {
           localStorage.removeItem('x-xsrf-token')
           dispatch('setAuth', false)
           return response
         }
-      } catch (e) {
-        console.log('logout', e)
+      } catch (error) {
+        console.log(error)
       }
     }
   },

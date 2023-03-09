@@ -1,7 +1,9 @@
 import axios from "axios";
-axios.defaults.withCredentials = true
 
-export const slider = {
+axios.defaults.withCredentials = true
+import * as slider from '@/services/api/slider'
+
+export const sliders = {
   state: () => ({
     slider: []
   }),
@@ -20,11 +22,10 @@ export const slider = {
      * @returns {Promise<axios.AxiosResponse<any>>}
      */
     async loadSlider({dispatch}) {
-      const url = process.env.VUE_APP_API_URL
       try {
-        const response = await axios.get(`${url}/api/slider`)
-        dispatch('setSlides', response.data.data)
-        return response
+        const response = await slider.getSlider()
+        dispatch('setSlides', response.data)
+        return response.data
       } catch (error) {
         console.log(error)
       }
@@ -36,14 +37,8 @@ export const slider = {
      * @returns {Promise<axios.AxiosResponse<any>>}
      */
     async createSlider({dispatch}, payload) {
-      const url = process.env.VUE_APP_API_URL
       try {
-        const response = await axios.post(`${url}/api/slider`, payload, {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'multipart/form-data',
-          }
-        })
+        const response = await slider.createSlider(payload)
         // Информация
         dispatch('openSnackbar', {
           message: 'Слайд успешно добавлен',
@@ -62,12 +57,11 @@ export const slider = {
      * Удаляет слайд
      * @param dispatch
      * @param id
-     * @returns {Promise<axios.AxiosResponse<any>>}
+     * @returns
      */
     async removeSlide({dispatch}, id) {
-      const url = process.env.VUE_APP_API_URL
       try {
-        const response = await axios.delete(`${url}/api/slider/${id}`)
+        const response = await slider.removeSlider(id)
         dispatch('openSnackbar', {
           message: 'Слайд успешно удален',
           color: 'success'

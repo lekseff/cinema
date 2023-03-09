@@ -64,7 +64,7 @@
                       variant="outlined"
                       density="comfortable"
                       label="Страна (Страны)"
-                      :items="countriesList"
+                      :items="getCountries"
                       v-model="movie.countries"
                       color="deep-orange-lighten-1"
                       :rules="[rules.requiredSelect]"
@@ -106,7 +106,7 @@
                       variant="outlined"
                       density="comfortable"
                       label="Возрастная категория"
-                      :items="ageCategoriesList"
+                      :items="getAgeCategories"
                       v-model="movie.ageCategory"
                       color="deep-orange-lighten-1"
                       :rules="[rules.required]"
@@ -191,9 +191,6 @@ import {rules} from "../../../../constants";
 export default {
    name: 'MovieCreatePage',
    data: () => ({
-      countriesList: [],
-      // genresList: [],
-      ageCategoriesList: [],
       movie: {
          name: '',
          plot: null,
@@ -209,17 +206,8 @@ export default {
    }),
    mounted() {
       this.loadAllCountries()
-          .then(() => {
-             this.countriesList = this.getCountries
-          })
       this.loadAllGenres()
-          // .then(() => {
-          //    this.genresList = this.getGenres
-          // })
       this.loadAllAgeCategories()
-          .then(() => {
-             this.ageCategoriesList = this.getAgeCategories
-          })
    },
    computed: {
       ...mapGetters(['getCountries', 'getGenres', 'getAgeCategories'])
