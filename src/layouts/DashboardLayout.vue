@@ -40,7 +40,7 @@
             <template v-slot:activator="{ props }">
                <v-list-item
                    v-bind="props"
-                   prepend-icon="mdi-movie-roll"
+                   prepend-icon="mdi-movie-open-cog"
                    title="Фильмы"
                ></v-list-item>
             </template>
@@ -54,6 +54,18 @@
             <v-list-item title="Добавить фильм" :to="{name: 'createMovie'}">
                <template v-slot:prepend>
                   <v-icon class="ma-0 mr-3" color="white" size="small">mdi-plus-thick</v-icon>
+               </template>
+            </v-list-item>
+
+            <v-list-item title="Страны" :to="{name: 'countriesMovie'}">
+               <template v-slot:prepend>
+                  <v-icon class="ma-0 mr-3" color="white" size="small">mdi-earth-plus</v-icon>
+               </template>
+            </v-list-item>
+
+            <v-list-item title="Жанры" :to="{name: 'genresMovie'}">
+               <template v-slot:prepend>
+                  <v-icon class="ma-0 mr-3" color="white" size="small">mdi-movie-plus-outline</v-icon>
                </template>
             </v-list-item>
 

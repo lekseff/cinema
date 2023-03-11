@@ -3,7 +3,9 @@ import {MODAL} from '../../constants'
 export const modals = {
   state: () => ({
     modals: {
-      [MODAL.addHall]: false
+      [MODAL.addHall]: false,
+      [MODAL.addCountry]: false,
+      [MODAL.addGenre]: false
     }
   }),
   mutations: {

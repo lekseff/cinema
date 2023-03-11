@@ -16,7 +16,7 @@
             ></v-progress-linear>
          </template>
 
-         <v-card-title class="text-center pt-0 mb-3">
+         <v-card-title class="text-center text-grey-darken-3 pt-0 mb-3">
             Добавить зал
          </v-card-title>
          <v-form ref="addHallForm">

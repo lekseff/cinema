@@ -44,6 +44,16 @@ export const dashboardRoutes = [
             path: 'create',
             name: 'createMovie',
             component: () => import('@/views/dashboard/movies/MovieCreatePage')
+          },
+          {
+            path: 'countries',
+            name: 'countriesMovie',
+            component: () => import('@/views/dashboard/movies/CountriesPage')
+          },
+          {
+            path: 'genres',
+            name: 'genresMovie',
+            component: () => import('@/views/dashboard/movies/GenresPage')
           }
         ]
       },

@@ -1,6 +1,8 @@
 // Названия модалок
 export const MODAL = {
-  addHall: 'addHall'
+  addHall: 'addHall',
+  addCountry: 'addCountry',
+  addGenre: 'addGenre'
 }
 
 // Правила валидации для полей формы
