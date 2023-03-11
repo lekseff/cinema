@@ -19,7 +19,7 @@
                 v-bind="props"
                 style="position: relative"
             >
-               <p class="d-inline-block text-body-1 pa-4">
+               <p class="d-inline-block text-body-1 px-3 py-2">
                   {{ session.movieName }}
                </p>
                <v-btn

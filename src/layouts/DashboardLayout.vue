@@ -111,7 +111,6 @@
                 block
                 :to="{name: 'home'}"
                 prepend-icon="mdi-home-account"
-                size="large"
             >
                На главную
             </v-btn>
@@ -121,7 +120,6 @@
                 block
                 @click.prevent="onLogout"
                 prepend-icon="mdi-logout-variant"
-                size="large"
             >
                Выход
             </v-btn>

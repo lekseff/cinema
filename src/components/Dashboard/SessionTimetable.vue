@@ -5,7 +5,7 @@
        class="pa-3 mb-4 border rounded-lg bg-blue-grey-lighten-5"
    >
       <!-- Название зала (Получаем из первого сеанса) -->
-      <h6 class="d-inline-block text-h6 bg-light-blue-darken-1 rounded-lg py-2 px-4 mt-1">
+      <h6 class="d-inline-block text-h6 bg-light-blue-darken-1 rounded-lg py-1 px-3 mt-1">
          {{ sessions[hallId][0].hallName }}
       </h6>
 
