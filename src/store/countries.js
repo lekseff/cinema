@@ -47,11 +47,11 @@ export const countries = {
     async createCountry({dispatch}, data) {
       try {
         const response = await country.createCountry(data)
-        dispatch('addCountry', response.data.data)
         dispatch('openSnackbar', {
           message: 'Страна успешно добавлена',
           color: 'success'
         })
+        dispatch('addCountry', response.data.data)
         return response.data.data
       } catch (error) {
         dispatch('openSnackbar', {
@@ -88,5 +88,4 @@ export const countries = {
       return state.countries
     }
   }
-
 }

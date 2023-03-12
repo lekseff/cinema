@@ -28,7 +28,6 @@ export default createStore({
       const url = process.env.VUE_APP_API_URL
       axios.get(`${url}/api/cinema`)
         .then((response) => {
-          console.log('movie response', response.data)
           const {movies, dates, sessions, slider} = response.data
           dispatch('setDates', dates) // Даты выбора фильмов
           dispatch('setMovies', movies) // Фильмы у которых есть активные сеансы (это не все фильмы с сервера)

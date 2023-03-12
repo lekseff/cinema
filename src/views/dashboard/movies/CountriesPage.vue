@@ -36,7 +36,7 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
-import {MODAL, rules} from '../../../../constants'
+import {MODAL} from '../../../../constants'
 import AppLoader from '@/components/AppLoader'
 import ModalAddCountry from '@/components/Dashboard/ModalAddCountry'
 
@@ -45,7 +45,6 @@ export default {
    components: {AppLoader, ModalAddCountry},
    data: () => ({
       country: '',
-      rules: rules,
       loading: true
    }),
    mounted() {
